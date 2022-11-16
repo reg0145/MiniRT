@@ -1,12 +1,21 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+# include "./libft/headers/libft.h"
+
 typedef enum e_obj
 {
 	SPHERE,
 	PLANE,
 	CYLINDER
 }	t_object_type;
+
+typedef enum e_info_type
+{
+	AMB	= 0x0001,
+	CAM	= 0x0002,
+	LIGHT	= 0x0004,
+}	t_info_type;
 
 typedef struct s_color
 {
@@ -69,7 +78,6 @@ typedef struct s_obj
 {
 	int				type;
 	void			*obj;
-	struct s_obj	*next;
 }	t_obj;
 
 typedef struct s_info
@@ -77,7 +85,7 @@ typedef struct s_info
 	struct s_light		light;
 	struct s_cam		cam;
 	struct s_ambient	amb;
-	struct s_obj		*objs;
+	t_list				*objs;
 }	t_info;
 
 #endif
