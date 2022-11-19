@@ -82,9 +82,9 @@ typedef struct s_obj
 
 typedef struct s_info
 {
-	struct s_light		light;
-	struct s_cam		cam;
 	struct s_ambient	amb;
+	struct s_cam		cam;
+	struct s_light		light;
 	t_list				*objs;
 }	t_info;
 

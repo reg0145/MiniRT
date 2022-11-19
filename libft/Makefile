@@ -27,6 +27,8 @@ SRCS = ft_isalpha.c \
 		ft_strtrim.c \
 		ft_split.c \
 		ft_itoa.c \
+		ft_strslen.c \
+		ft_strcmp.c \
 		ft_strmapi.c \
 		ft_striteri.c \
 		ft_putchar_fd.c \
@@ -50,12 +52,12 @@ BNSC = ft_lstnew.c \
 
 OBJS = $(SRCS:.c=.o)
 BNSO = $(BNSC:.c=.o)
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 all : $(NAME)
 
 %.o : %.c
-	gcc $(CFLAGS) -c -o $@ $< -I $(HDRS)
+	gcc $(CFLAGS) -c -o $@ $< -I $(HDRS) -g
 
 $(NAME) :$(OBJS)
 	ar rcs $(NAME) $(OBJS)
