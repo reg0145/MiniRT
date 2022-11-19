@@ -8,13 +8,6 @@
 
 # define BUFFER_SIZE 1024
 
-void	ft_error(char *msg)
-{
-	ft_putendl_fd("Error", 2);
-	ft_putendl_fd(msg, 2);
-	exit(1);
-}
-
 void	ft_free_strs(char **strs)
 {
 	size_t	i;
@@ -103,8 +96,6 @@ static void	check_minus_and_format(char **str, int *minus)
 		ft_error("worng input : type must be double");
 }
 
-
-
 double	ft_atod(char *str)
 {
 	double			num;
@@ -118,7 +109,7 @@ double	ft_atod(char *str)
 	while (ft_isdigit(*str) && *str)
 	{
 		if (ft_check_flow(num, *str, minus))
-			ft_error("worng input : type should be double");
+			return (ft_check_flow(num, *str, minus) - 2);
 		num *= 10;
 		num += *str - '0';
 		str++;
@@ -305,6 +296,7 @@ void	parse_a_line(char *line, int *flag, t_info *info)
 		parse_cylinder(args, info);
 	else
 		ft_error("wrong input : undefined identifier");
+	ft_free_strs(args);
 }
 
 void	parse_to_info(char *content, t_info *info)
@@ -313,17 +305,15 @@ void	parse_to_info(char *content, t_info *info)
 	int		flag;
 	char	**lines;
 
+	i = -1;
+	flag = 0;
 	lines = ft_split(content, '\n');
 	if (!lines)
 		ft_error("malloc failed");
-	i = -1;
-	flag = 0;
+	free(content);
 	while (lines[++i])
-	{
 		parse_a_line(lines[i], &flag, info);
-		free(lines[i]);
-	}
-	free(lines);
+	ft_free_strs(lines);
 	if (flag ^ AMB ^ CAM ^ LIGHT)
 		ft_error("no essential identifier(A, C, L)");
 }
@@ -348,5 +338,6 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		ft_error("wrong number of arguments");
 	parse(av[1], &info);
-	return (0);
+	// exceve(&info);
+	exit (0);
 }
