@@ -1,4 +1,4 @@
-NAME = libftprintf.a
+NAME = libft.a
 SRCS = ft_isalpha.c \
 		ft_isdigit.c \
 		ft_isalnum.c \
@@ -52,25 +52,23 @@ BNSC = ft_lstnew.c \
 
 OBJS = $(SRCS:.c=.o)
 BNSO = $(BNSC:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 
 %.o : %.c
-	gcc $(CFLAGS) -c -o $@ $< -I $(HDRS) -g
+	gcc $(CFLAGS) -c -o $@ $< -I $(HDRS)
 
-$(NAME) :$(OBJS)
-	ar rcs $(NAME) $(OBJS)
+$(NAME) :$(OBJS) $(BNSO)
+	ar rcs $(NAME) $(OBJS) $(BNSO)
 
 clean :
 	rm -f $(OBJS) $(BNSO)
 
-fclean : clean
+fclean : 
+	clean
 	rm -f $(NAME)
 
 re : fclean all
 
-bonus : $(BNSO) $(OBJS)
-	ar rcs $(NAME) $(OBJS) $(BNSO)
-
-.PHONY : clean fclean re all bonus
+.PHONY : clean fclean re all
