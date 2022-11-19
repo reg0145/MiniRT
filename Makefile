@@ -10,7 +10,7 @@ LIBFT = libft/libft.a
 all : $(NAME)
 
 %.o : %.c
-	gcc $(CFLAGS) -c -o $@ $< -I $(HDRS)
+	gcc $(CFLAGS) -c -o $@ $< -I $(HDRS) -g
 
 $(NAME) :$(OBJS)
 	make -C libft
@@ -22,12 +22,13 @@ clean :
 	make clean -C mlx
 	rm -f $(OBJS) $(BNSO)
 
-fclean : clean
+fclean :
+	make clean
 	rm -f $(LIBFT)
 	rm -f $(NAME)
 
 re : 
-	fclean
-	all
+	make fclean
+	make all
 
 .PHONY : clean fclean re all

@@ -1,5 +1,6 @@
 #include "libft/headers/libft.h"
 #include "structs.h"
+#include <stddef.h>
 #include <sys/fcntl.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -9,9 +10,22 @@
 
 void	ft_error(char *msg)
 {
-	ft_putendl_fd("error", 2);
+	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(msg, 2);
 	exit(1);
+}
+
+void	ft_free_strs(char **strs)
+{
+	size_t	i;
+
+	i = 0;
+	while (strs[i])
+	{
+		free(strs[i]);
+		i++;
+	}
+	free(strs);
 }
 
 void	check_file_extension(char *file)
@@ -127,44 +141,74 @@ double	ft_atod(char *str)
 t_color	ft_get_color(char *str)
 {
 	char	**colors;
+	t_color	color;
 
 	colors = ft_split(str, ',');
 	if (!colors)
 		ft_error("malloc failed");
 	if (ft_strslen(colors) != 3)
 		ft_error("wrong input : color must be 3 numbers");
-	return ((t_color){ft_atoi(colors[0]), ft_atoi(colors[1]), ft_atoi(colors[2])});
+	color = (t_color){ft_atoi(colors[0]), ft_atoi(colors[1]), ft_atoi(colors[2])};
+	ft_free_strs(colors);
+	if (color.b < 0 || color.b > 255 || color.g < 0 || color.g > 255 || color.r < 0 || color.r > 255)
+		ft_error("wrong input : color must be 0 ~ 255");
+	return (color);
 }
 
 t_pt	get_pt(char *str)
 {
 	char	**pts;
+	t_pt	pt;
 
 	pts = ft_split(str, ',');
 	if (!pts)
 		ft_error("malloc failed");
 	if (ft_strslen(pts) != 3)
 		ft_error("wrong input : point must be 3 numbers");
-	return ((t_pt){ft_atod(pts[0]), ft_atod(pts[1]), ft_atod(pts[2])});
+	pt =  ((t_pt){ft_atod(pts[0]), ft_atod(pts[1]), ft_atod(pts[2])});
+	ft_free_strs(pts);
+	return (pt);
+}
+
+t_pt	get_n_vec(char *str)
+{
+	t_pt	vec;
+
+	vec = get_pt(str);
+	if (vec.x < -1 || vec.x > 1 || vec.y < -1 || vec.y > 1 || vec.z < -1 || vec.z > 1)
+		ft_error("wrong input : vector must be -1 ~ 1");
+	return (vec);
 }
 
 void	parse_ambient(char **args, t_info *info)
 {
+	if (ft_strslen(args) != 3)
+		ft_error("wrong input : 'A' must be 3 arguments");
 	info->amb.ratio = ft_atod(args[1]);
+	if (info->amb.ratio < 0 || info->amb.ratio > 1)
+		ft_error("wrong input : ambient ratio must be 0 ~ 1");
 	info->amb.color = ft_get_color(args[2]);
 }
 
 void	parse_camera(char **args, t_info *info)
 {
+	if (ft_strslen(args) != 4)
+		ft_error("wrong input : 'C' must be 4 arguments");
 	info->cam.pos = get_pt(args[1]);
 	info->cam.n_vec = get_pt(args[2]);
+	if (info->cam.n_vec.x < -1 || info->cam.n_vec.x > 1 || info->cam.n_vec.y < -1 || info->cam.n_vec.y > 1 || info->cam.n_vec.z < -1 || info->cam.n_vec.z > 1)
+		ft_error("wrong input : camera normal vector must be -1 ~ 1");
 	info->cam.fov = ft_atod(args[3]);
 }
 
 void	parse_light(char **args, t_info *info)
 {
+	if (ft_strslen(args) != 4)
+		ft_error("wrong input : 'L' must be 4 arguments");
 	info->light.pos = get_pt(args[1]);
 	info->light.ratio = ft_atod(args[2]);
+	if (info->light.ratio < 0 || info->light.ratio > 1)
+		ft_error("wrong input : light ratio must be 0 ~ 1");
 	ft_get_color(args[3]);
 }
 
@@ -174,6 +218,8 @@ void	parse_sphere(char **args, t_info *info)
 	t_sp	*new_sp;
 	t_list	*new;
 
+	if (ft_strslen(args) != 4)
+		ft_error("wrong input : 'sp' must be 4 arguments");
 	obj = (t_obj *)malloc(sizeof(t_obj));
 	new_sp = (t_sp *)malloc(sizeof(t_sp));
 	if (!obj || !new_sp)
@@ -195,6 +241,8 @@ void	parse_plane(char **args, t_info *info)
 	t_pl	*new_pl;
 	t_list	*new;
 
+	if (ft_strslen(args) != 4)
+		ft_error("wrong input : 'pl' must be 4 arguments");
 	obj = (t_obj *)malloc(sizeof(t_obj));
 	new_pl = (t_pl *)malloc(sizeof(t_pl));
 	if (!obj || !new_pl)
@@ -216,6 +264,8 @@ void	parse_cylinder(char **args, t_info *info)
 	t_cy	*new_cy;
 	t_list	*new;
 
+	if (ft_strslen(args) != 6)
+		ft_error("wrong input : 'cy' must be 6 arguments");
 	obj = (t_obj *)malloc(sizeof(t_obj));
 	new_cy = (t_cy *)malloc(sizeof(t_cy));
 	if (!obj || !new_cy)
@@ -241,11 +291,11 @@ void	parse_a_line(char *line, int *flag, t_info *info)
 	if (!args)
 		ft_error("malloc failed");
 	check_duplicate_info(*line, flag);
-	if (*line == 'A')
+	if (!ft_strncmp(line, "A ", 2))
 		parse_ambient(args, info);
-	else if (*line == 'C')
+	else if (!ft_strncmp(line, "C ", 2))
 		parse_camera(args, info);		
-	else if (*line == 'L')
+	else if (!ft_strncmp(line, "L ", 2))
 		parse_light(args, info);
 	else if (!ft_strncmp(line,"sp ", 3))
 		parse_sphere(args, info);
@@ -274,7 +324,7 @@ void	parse_to_info(char *content, t_info *info)
 		free(lines[i]);
 	}
 	free(lines);
-	if (!(flag ^ AMB) || !(flag ^ CAM) || !(flag ^ LIGHT))
+	if (flag ^ AMB ^ CAM ^ LIGHT)
 		ft_error("no essential identifier(A, C, L)");
 }
 
