@@ -70,7 +70,7 @@ void	cam_init(t_info *info)
 
 	info->cam.dir = vunit(info->cam.dir);
 	info->cam.focal_len = tan((info->cam.focal_len * M_PI / 180.0) / 2.0);	//cam과 화면 사이의 거리
-	info->cam.v_h = 2.0 * info->cam.focal_len; // 뷰포트 세로길이
+	info->cam.v_h = 2.0 * info->cam.focal_len; // 뷰포트 세로길이 (2.0은 임의의 상수값)
 	info->cam.v_w = info->cam.v_h * (double)WIDTH / (double)HEIGHT; // 뷰포트 가로길이
 	w = vunit(vmult(info->cam.dir, -1));  // 카메라 방향 벡터의 반대 방향
 	u = vunit(vcross(cam_set_vup(info->cam.dir), w));  // 카메라 방향 벡터와 수직인 벡터
@@ -126,7 +126,7 @@ t_hit_check check_objs(t_info *info, t_ray ray)
 	t_list		*list;
 
 	list = info->objs;
-	hit.t = INFINITY;
+	hit.t = 1000;
 	while (list)
 	{
 		obj = (t_obj *)list->content;
