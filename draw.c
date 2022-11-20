@@ -1,5 +1,6 @@
 #include "structs.h"
 #include <math.h>
+#include <stdio.h>
 
 double	root_formula(double a, double b, double c, t_hit_check hit)
 {
@@ -105,7 +106,7 @@ int	hit_sphere(t_sp *sp, t_ray ray, t_hit_check *hit)
 	b = 2 * vdot(oc, ray.dir); //광선의 시작점 - 구의 중심 * 광선의 방향
 	c = vlength2(oc) - sp->r * sp->r; //광선의 시작점 - 구의 중심 * 광선의 시작점 - 구의 중심
 	tmp = root_formula(a, b, c, *hit); // t값 최대, 최소 범위 내에서의 광선과 구의 교점
-	if (tmp < hit->t_min || tmp > hit->t)
+	if (tmp < hit->t_min || hit->t_max < tmp)
 		return (FALSE);
 	hit->t = tmp;
 	hit->albedo = sp->color;
@@ -148,31 +149,32 @@ int	hit_check(t_obj *obj, t_ray ray, t_hit_check *hit)
 int check_objs(t_info *info, t_ray ray, t_hit_check *hit)
 {
 	t_obj		*obj;
+	t_hit_check	tmp;
 	t_list		*list;
 	int			return_value;
 
 	return_value = FALSE;
 	list = info->objs;
+	tmp = *hit;
 	while (list)
 	{
 		obj = (t_obj *)list->content;
-		if (hit_check(obj, ray, hit))
+		if (hit_check(obj, ray, &tmp))
 		{
-			hit->t_max = hit->t;
+			tmp.t_max = tmp.t;
 			return_value = TRUE;
+			*hit = tmp;
 		}
 		list = list->next;
 	}
 	return (return_value);
 }
 
-int	is_shadow(t_info *info, t_hit_check hit, t_ray ray, double len)
+int	is_shadow(t_info *info, t_hit_check *hit, t_ray ray, double len)
 {
-	t_hit_check	tmp;
-
-	hit.t_min = 0;
-	hit.t_max = len;
-	if (check_objs(info, ray, &tmp))
+	hit->t_min = 0;
+	hit->t_max = len;
+	if (check_objs(info, ray, hit))
 		return (TRUE);
 	return (FALSE);
 }
@@ -181,23 +183,26 @@ t_pt	check_light(t_info *info, t_ray ray, t_hit_check hit)
 {
 	t_pong	pong;
 	t_pt	color;
+	t_ray	to_light;
 
-	pong.lig_dir = vunit(vsub(info->light.pos, hit.pos));
 	pong.len = vlength(vsub(info->light.pos, hit.pos));
-	if (is_shadow(info, hit, ray, pong.len))	//그림자 확인
+	to_light = (t_ray){vadd(hit.pos, vmult(hit.dir, 1e-6)), \
+		vunit(vsub(info->light.pos, hit.pos))};
+	if (is_shadow(info, &hit, to_light, pong.len))	//그림자 확인
 		return ((t_pt){0, 0, 0});
-	pong.kd = fmax(vdot(pong.lig_dir, hit.dir), 0);
+	pong.lig_dir = vunit(vsub(info->light.pos, hit.pos)); //광원에서 타점까지 방향
+	pong.kd = fmax(vdot(hit.dir, pong.lig_dir), 0.0); //
 	pong.dif = vmult(info->light.color, pong.kd * info->light.ratio);
 	pong.view_dir = vunit(vmult(ray.dir, -1));	//보이는 방향(카메라 방향)
 	pong.ref_dir = vreflect(vmult(pong.lig_dir, -1), hit.dir);	//반사된 광선
 	pong.ksn = 511; //반사광 강도
 	pong.ks = 1;	//광택 정도
-	pong.spec = pow(fmax(vdot(pong.lig_dir, pong.ref_dir), 0), pong.ksn);	//반사된 광선과 보이는 방향의 내적. 90도면 0이 될것...!
+	pong.spec = pow(fmax(vdot(pong.view_dir, pong.ref_dir), 0.0), pong.ksn);	//반사된 광선과 보이는 방향의 내적. 90도면 0이 될것...!
 	pong.specular = vmult((vmult(info->light.color, pong.ks * \
 		info->light.ratio)), pong.spec);
 	color = vadd(vadd(pong.dif, pong.specular), \
 		vmult(info->amb.color, info->amb.ratio)); // 광택 + 난반사
-	return (vsub(vmult_vec(hit.albedo, color), (t_pt){1,1,1}));
+	return (vmin(vmult_vec(color, hit.albedo), (t_pt){1,1,1}));
 }
 
 t_pt	check_color(t_info *info, t_ray ray, t_hit_check hit)

@@ -153,6 +153,7 @@ t_pt	vdiv(t_pt vec, double t);
 double	vdot(t_pt vec1, t_pt vec2);
 t_pt	vcross(t_pt vec1, t_pt vec2);
 t_pt	vreflect(t_pt vec, t_pt n_vec);
+t_pt	vmin(t_pt vec1, t_pt vec2);
 void	exceve(t_info *info);
 
 #endif
