@@ -6,7 +6,7 @@
 /*   By: nheo <neho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 10:16:23 by nheo              #+#    #+#             */
-/*   Updated: 2021/11/25 10:16:25 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/20 11:08:22 by heonamjun        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	size_t	len;
-
 	if (!s)
 		return ;
-	len = ft_strlen(s);
 	while (*s)
 	{
 		ft_putchar_fd(*s++, fd);

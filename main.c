@@ -1,10 +1,4 @@
-#include "libft/headers/libft.h"
 #include "structs.h"
-#include <stddef.h>
-#include <sys/fcntl.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdlib.h>
 
 # define BUFFER_SIZE 1024
 
@@ -186,8 +180,8 @@ void	parse_camera(char **args, t_info *info)
 	if (ft_strslen(args) != 4)
 		ft_error("wrong input : 'C' must be 4 arguments");
 	info->cam.pos = get_pt(args[1]);
-	info->cam.n_vec = get_pt(args[2]);
-	if (info->cam.n_vec.x < -1 || info->cam.n_vec.x > 1 || info->cam.n_vec.y < -1 || info->cam.n_vec.y > 1 || info->cam.n_vec.z < -1 || info->cam.n_vec.z > 1)
+	info->cam.dir = get_pt(args[2]);
+	if (info->cam.dir.x < -1 || info->cam.dir.x > 1 || info->cam.dir.y < -1 || info->cam.dir.y > 1 || info->cam.dir.z < -1 || info->cam.dir.z > 1)
 		ft_error("wrong input : camera normal vector must be -1 ~ 1");
 	info->cam.fov = ft_atod(args[3]);
 }
@@ -239,7 +233,7 @@ void	parse_plane(char **args, t_info *info)
 	if (!obj || !new_pl)
 		ft_error("malloc failed");
 	new_pl->pos = get_pt(args[1]);
-	new_pl->n_vec = get_pt(args[2]);
+	new_pl->dir = get_pt(args[2]);
 	new_pl->color = ft_get_color(args[3]);
 	obj->type = PLANE;
 	obj->obj = new_pl;
@@ -262,7 +256,7 @@ void	parse_cylinder(char **args, t_info *info)
 	if (!obj || !new_cy)
 		ft_error("malloc failed");
 	new_cy->pos = get_pt(args[1]);
-	new_cy->n_vec = get_pt(args[2]);
+	new_cy->dir = get_pt(args[2]);
 	new_cy->r = ft_atod(args[3]);
 	new_cy->height = ft_atod(args[4]);
 	new_cy->color = ft_get_color(args[5]);
@@ -338,6 +332,6 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		ft_error("wrong number of arguments");
 	parse(av[1], &info);
-	// exceve(&info);
+	exceve(&info);
 	exit (0);
 }

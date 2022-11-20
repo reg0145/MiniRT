@@ -1,11 +1,13 @@
 NAME = miniRT
-SRCS = main.c
+SRCS = main.c \
+		draw.c \
+		vector_util1.c
 
 HDRS = headers
 
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror
-MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
+CFLAGS = -Wall -Wextra -Werror -g
+MLX_FLAGS	=	-L./mlx -lmlx -framework OpenGL -framework Appkit
 LIBFT = libft/libft.a
 all : $(NAME)
 
