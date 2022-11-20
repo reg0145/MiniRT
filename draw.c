@@ -19,10 +19,18 @@ void	pixel_put(t_info *info, int x, int y, t_color cl)
 	*(unsigned int *)img_addr = color_hex;
 }
 
+int	key_press(int keycode, t_info *info)
+{
+	if (keycode == 53)
+		exit(0);
+	(void)info;
+	return (0);
+}
+
 void	draw(t_info *info)
 {
 	mlx_put_image_to_window(info->mlx, info->win, info->img, 0, 0);
-	// mlx_hook(info->win, 2, 0, key_press, info);
+	mlx_hook(info->win, 2, 0, key_press, info);
 }
 
 void	init_mlx_info(t_info *info)
@@ -30,7 +38,7 @@ void	init_mlx_info(t_info *info)
 	info->mlx = mlx_init();
 	info->win = mlx_new_window(info->mlx, WIDTH, HEIGHT, "miniRT");
 	info->img = mlx_new_image(info->mlx, WIDTH, HEIGHT);
-	info->addr = mlx_get_data_addr(info->img, &info->bpp,
+	info->addr = mlx_get_data_addr(info->img, &info->bpp, \
 		&info->size_line, &info->endian);
 }
 
@@ -41,7 +49,8 @@ t_ray	ray_init(t_info *info, double x, double y)
 
 	cam = info->cam;
 	ray.pos = info->cam.pos;
-	ray.dir = vunit(vsub(vadd(cam.vp_ll, vadd(vmult(cam.hor, x), vmult(cam.ver, y))), cam.pos)); //광선의 벡터 : 현 위치 - 카메라 벡터
+	ray.dir = vunit(vsub(vadd(cam.vp_ll, vadd(vmult(cam.hor, x), \
+		vmult(cam.ver, y))), cam.pos)); //광선의 방향 : 현 위치 - 카메라 벡터
 	return (ray);
 }
 
@@ -66,8 +75,8 @@ void	cam_init(t_info *info)
 	w = vunit(vmult(info->cam.dir, -1));  // 카메라 방향 벡터의 반대 방향
 	u = vunit(vcross(cam_set_vup(info->cam.dir), w));  // 카메라 방향 벡터와 수직인 벡터
 	v = vcross(w, u);  // 카메라 방향 벡터와 수직인 벡터
-	info->cam.vp_ll = vsub(vsub(info->cam.pos, vmult(u, info->cam.v_w / 2.0)),
-		vmult(v, info->cam.v_h / 2.0)); // 뷰포트 왼쪽 아래 꼭지점
+	info->cam.vp_ll = vsub(vsub(info->cam.pos, vdiv(u, info->cam.v_w / 2.0)), \
+		vdiv(v, info->cam.v_h / 2.0)); // 뷰포트 왼쪽 아래 꼭지점
 }
 
 t_hit_check	hit_sphere(t_obj *sp, t_ray ray, t_hit_check hit)
@@ -134,13 +143,13 @@ t_color check_light(t_info *info, t_ray ray, t_hit_check hit)
 	(void)hit;
 	(void)ray;
 	(void)info;
-	return ((t_color){255, 255, 255});
+	return ((t_color){125, 125, 130});
 }
 
 t_color	trace_ray(t_info *info, t_ray ray)
 {
-	t_color		color;
 	t_hit_check	hit;
+	t_color		color;
 
 	hit = check_objs(info, ray);
 	color = check_light(info, ray, hit);
@@ -171,4 +180,5 @@ void	exceve(t_info *info)
 		i++;
 	}
 	draw(info);
+	mlx_loop(info->mlx);
 }

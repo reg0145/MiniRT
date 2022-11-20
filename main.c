@@ -333,5 +333,5 @@ int	main(int ac, char **av)
 		ft_error("wrong number of arguments");
 	parse(av[1], &info);
 	exceve(&info);
-	exit (0);
+	exit(0);
 }
