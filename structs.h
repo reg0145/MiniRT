@@ -57,7 +57,7 @@ typedef struct s_light
 {
 	struct s_pt	pos;
 	double		ratio;
-	// struct s_color	color;
+	struct s_pt	color;
 }	t_light;
 
 typedef struct s_sp
@@ -108,6 +108,22 @@ typedef struct s_ray
 	t_pt		pos;
 	t_pt		dir;
 }	t_ray;
+
+typedef struct s_pong
+{
+	t_pt		lig_dir;
+	double		len;
+	double		kd;
+	double		ks;
+	double		ksn;
+	double		ls;
+	double		ld;
+	t_pt		dif;	// 난반사
+	double		spec;	// 입사각, 반사각 사이의 각도
+	t_pt		specular;	// 반사광
+	t_pt		view_dir;
+	t_pt		ref_dir;
+}	t_pong;
 
 typedef struct s_info
 {

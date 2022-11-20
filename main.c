@@ -138,6 +138,7 @@ t_pt	ft_get_color(char *str)
 	ft_free_strs(colors);
 	if (color.z < 0 || color.z > 255 || color.y < 0 || color.y > 255 || color.x < 0 || color.x > 255)
 		ft_error("wrong input : color must be 0 ~ 255");
+	color = (t_pt){color.x / 255.0, color.y / 255.0, color.z / 255.0};
 	return (color);
 }
 
@@ -195,7 +196,7 @@ void	parse_light(char **args, t_info *info)
 	info->light.ratio = ft_atod(args[2]);
 	if (info->light.ratio < 0 || info->light.ratio > 1)
 		ft_error("wrong input : light ratio must be 0 ~ 1");
-	ft_get_color(args[3]);
+	info->light.color = ft_get_color(args[3]);
 }
 
 void	parse_sphere(char **args, t_info *info)

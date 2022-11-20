@@ -15,9 +15,7 @@ double	root_formula(double a, double b, double c, t_hit_check hit)
 	if ((root1 < hit.t_min && root2 < hit.t_min) || \
 		(root1 > hit.t_max && root2 > hit.t_max))
 		return (-1);
-	if (0 < root1 && root1 < root2)
-		return (root1);
-	return (root2);
+	return (fmin(root1, root2));
 }
 
 void	pixel_put(t_info *info, int x, int y, t_pt cl)
@@ -44,12 +42,6 @@ int	key_press(int keycode, t_info *info)
 		exit(0);
 	(void)info;
 	return (0);
-}
-
-void	draw(t_info *info)
-{
-	mlx_put_image_to_window(info->mlx, info->win, info->img, 0, 0);
-	mlx_hook(info->win, 2, 0, key_press, info);
 }
 
 void	init_mlx_info(t_info *info)
@@ -113,7 +105,7 @@ t_hit_check	hit_sphere(t_sp *sp, t_ray ray, t_hit_check hit)
 	b = 2 * vdot(oc, ray.dir); //광선의 시작점 - 구의 중심 * 광선의 방향
 	c = vlength2(oc) - sp->r * sp->r; //광선의 시작점 - 구의 중심 * 광선의 시작점 - 구의 중심
 	tmp = root_formula(a, b, c, hit); // t값 최대, 최소 범위 내에서의 광선과 구의 교점
-	if (tmp < 0 || tmp > hit.t)
+	if (tmp < hit.t_min || tmp > hit.t)
 		return (hit);
 	hit.t = tmp;
 	hit.albedo = sp->color;
@@ -169,14 +161,36 @@ t_hit_check check_objs(t_info *info, t_ray ray, t_hit_check hit)
 	return (hit);
 }
 
-t_pt check_light(t_info *info, t_ray ray, t_hit_check hit)
+t_pt	check_light(t_info *info, t_ray ray, t_hit_check hit)
+{
+	t_pong	pong;
+	t_pt	color;
+
+	pong.lig_dir = vunit(vsub(info->light.pos, hit.pos));
+	pong.len = vlength(vsub(info->light.pos, hit.pos));
+	//그림자 확인
+
+	pong.kd = fmax(vdot(pong.lig_dir, hit.dir), 0);
+	pong.dif = vmult(info->light.color, pong.kd * info->light.ratio);
+	pong.view_dir = vunit(vmult(ray.dir, -1));	//보이는 방향(카메라 방향)
+	pong.ref_dir = vreflect(vmult(pong.lig_dir, -1), hit.dir);	//반사된 광선
+	pong.ks = 1;	//광택 정도
+	pong.ksn = 34; //반사광 강도
+	pong.spec = pow(fmax(vdot(pong.lig_dir, pong.ref_dir), 0), pong.ksn);	//반사된 광선과 보이는 방향의 내적. 90도면 0이 될것...!
+	pong.specular = vmult((vmult(info->light.color, pong.spec)), pong.spec);
+	color = vadd(vadd(pong.dif, pong.specular), \
+		vmult(info->amb.color, info->amb.ratio)); // 광택 + 난반사
+	return (vsub(vmult_vec(hit.albedo, color), (t_pt){1,1,1}));
+}
+
+t_pt	check_color(t_info *info, t_ray ray, t_hit_check hit)
 {
 	(void)hit;
 	(void)ray;
 	(void)info;
-	if (hit.t_min < hit.t && hit.t < hit.t_max)
-		return (hit.albedo);
-	return ((t_pt){125, 125, 120});
+	if (hit.t > hit.t_min && hit.t < hit.t_max)
+		return (check_light(info, ray, hit));
+	return ((t_pt){0, 0, 0});
 }
 
 t_pt	trace_ray(t_info *info, t_ray ray)
@@ -189,11 +203,11 @@ t_pt	trace_ray(t_info *info, t_ray ray)
 	hit.t_min = 1e-6;
 	hit.t = hit.t_max;
 	hit = check_objs(info, ray, hit);
-	color = check_light(info, ray, hit);
+	color = check_color(info, ray, hit);
 	return (color);
 }
 
-void	exceve(t_info *info)
+void	draw(t_info *info)
 {
 	int		i;
 	int		j;
@@ -214,6 +228,12 @@ void	exceve(t_info *info)
 			pixel_put(info, i, HEIGHT - j - 1, color);
 		}
 	}
+	mlx_put_image_to_window(info->mlx, info->win, info->img, 0, 0);
+	mlx_hook(info->win, 2, 0, key_press, info);
+}
+
+void	exceve(t_info *info)
+{
 	draw(info);
 	mlx_loop(info->mlx);
 }
