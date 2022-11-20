@@ -12,6 +12,8 @@
 
 # define WIDTH 1200
 # define HEIGHT 900
+# define TRUE 1
+# define FALSE 0
 
 typedef enum e_obj
 {

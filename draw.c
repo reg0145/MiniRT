@@ -92,7 +92,7 @@ void	cam_init(t_info *info)
 		vdiv(info->cam.hor, 2)), vdiv(info->cam.ver, 2)), w); // 뷰포트 왼쪽 아래 꼭지점
 }
 
-t_hit_check	hit_sphere(t_sp *sp, t_ray ray, t_hit_check hit)
+int	hit_sphere(t_sp *sp, t_ray ray, t_hit_check *hit)
 {
 	t_pt	oc;
 	double	a;
@@ -104,64 +104,77 @@ t_hit_check	hit_sphere(t_sp *sp, t_ray ray, t_hit_check hit)
 	a = vlength2(ray.dir);	//광선의 방향
 	b = 2 * vdot(oc, ray.dir); //광선의 시작점 - 구의 중심 * 광선의 방향
 	c = vlength2(oc) - sp->r * sp->r; //광선의 시작점 - 구의 중심 * 광선의 시작점 - 구의 중심
-	tmp = root_formula(a, b, c, hit); // t값 최대, 최소 범위 내에서의 광선과 구의 교점
-	if (tmp < hit.t_min || tmp > hit.t)
-		return (hit);
-	hit.t = tmp;
-	hit.albedo = sp->color;
-	hit.pos = vadd(ray.pos, vmult(ray.dir, hit.t));
-	hit.dir = vdiv(vsub(hit.pos, sp->pos), sp->r);
-	if (vdot(ray.dir, hit.dir) > 0)
-		hit.dir = vmult(hit.dir, -1);
-	return (hit);
+	tmp = root_formula(a, b, c, *hit); // t값 최대, 최소 범위 내에서의 광선과 구의 교점
+	if (tmp < hit->t_min || tmp > hit->t)
+		return (FALSE);
+	hit->t = tmp;
+	hit->albedo = sp->color;
+	hit->pos = vadd(ray.pos, vmult(ray.dir, hit->t));
+	hit->dir = vdiv(vsub(hit->pos, sp->pos), sp->r);
+	if (vdot(ray.dir, hit->dir) > 0)
+		hit->dir = vmult(hit->dir, -1);
+	return (TRUE);
 }
 
-t_hit_check	hit_plane(t_pl *pl, t_ray ray, t_hit_check hit)
+int	hit_plane(t_pl *pl, t_ray ray, t_hit_check *hit)
 {
 	(void)hit;
 	(void)ray;
 	(void)pl;
-	return (hit);
+	return (TRUE);
 }
 
-t_hit_check	hit_cylinder(t_cy *cy, t_ray ray, t_hit_check hit)
+int	hit_cylinder(t_cy *cy, t_ray ray, t_hit_check *hit)
 {
 	(void)hit;
 	(void)ray;
 	(void)cy;
-	return (hit);
+	return (TRUE);
 }
 
-t_hit_check hit_check(t_obj *obj, t_ray ray, t_hit_check hit)
+int	hit_check(t_obj *obj, t_ray ray, t_hit_check *hit)
 {
+	int	return_value;
+
 	if (obj->type == SPHERE)
-		hit = hit_sphere((t_sp *)obj->obj_info, ray, hit);
+		return_value = hit_sphere((t_sp *)obj->obj_info, ray, hit);
 	if (obj->type == PLANE)
-		hit = hit_plane((t_pl *)obj->obj_info, ray, hit);
+		return_value = hit_plane((t_pl *)obj->obj_info, ray, hit);
 	if (obj->type == CYLINDER)
-		hit = hit_cylinder((t_cy *)obj->obj_info, ray, hit);
-	return (hit);
+		return_value = hit_cylinder((t_cy *)obj->obj_info, ray, hit);
+	return (return_value);
 }
 
-t_hit_check check_objs(t_info *info, t_ray ray, t_hit_check hit)
+int check_objs(t_info *info, t_ray ray, t_hit_check *hit)
 {
-	t_hit_check	tmp;
 	t_obj		*obj;
 	t_list		*list;
+	int			return_value;
 
+	return_value = FALSE;
 	list = info->objs;
 	while (list)
 	{
 		obj = (t_obj *)list->content;
-		tmp = hit_check(obj, ray, hit);
-		if (tmp.t > 0 && tmp.t < hit.t)
+		if (hit_check(obj, ray, hit))
 		{
-			hit = tmp;
-			hit.t_max = hit.t;
+			hit->t_max = hit->t;
+			return_value = TRUE;
 		}
 		list = list->next;
 	}
-	return (hit);
+	return (return_value);
+}
+
+int	is_shadow(t_info *info, t_hit_check hit, t_ray ray, double len)
+{
+	t_hit_check	tmp;
+
+	hit.t_min = 0;
+	hit.t_max = len;
+	if (check_objs(info, ray, &tmp))
+		return (TRUE);
+	return (FALSE);
 }
 
 t_pt	check_light(t_info *info, t_ray ray, t_hit_check hit)
@@ -171,8 +184,8 @@ t_pt	check_light(t_info *info, t_ray ray, t_hit_check hit)
 
 	pong.lig_dir = vunit(vsub(info->light.pos, hit.pos));
 	pong.len = vlength(vsub(info->light.pos, hit.pos));
-	//그림자 확인
-
+	if (is_shadow(info, hit, ray, pong.len))	//그림자 확인
+		return ((t_pt){0, 0, 0});
 	pong.kd = fmax(vdot(pong.lig_dir, hit.dir), 0);
 	pong.dif = vmult(info->light.color, pong.kd * info->light.ratio);
 	pong.view_dir = vunit(vmult(ray.dir, -1));	//보이는 방향(카메라 방향)
@@ -206,7 +219,7 @@ t_pt	trace_ray(t_info *info, t_ray ray)
 	hit.t_max = 10000;
 	hit.t_min = 1e-6;
 	hit.t = hit.t_max;
-	hit = check_objs(info, ray, hit);
+	check_objs(info, ray, &hit);
 	color = check_color(info, ray, hit);
 	return (color);
 }
