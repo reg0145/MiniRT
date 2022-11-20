@@ -10,8 +10,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-# define HEIGHT 1200
-# define WIDTH 900
+# define WIDTH 1200
+# define HEIGHT 900
 
 typedef enum e_obj
 {
@@ -27,13 +27,6 @@ typedef enum e_info_type
 	LIGHT	= 0x0004,
 }	t_info_type;
 
-typedef struct s_color
-{
-	int	r;
-	int	g;
-	int	b;
-}	t_color;
-
 typedef struct s_pt
 {
 	double	x;
@@ -43,7 +36,7 @@ typedef struct s_pt
 
 typedef struct s_ambient
 {
-	struct s_color	color;
+	struct s_pt		color;
 	double			ratio;
 }	t_ambient;
 
@@ -70,7 +63,7 @@ typedef struct s_light
 typedef struct s_sp
 {
 	struct s_pt		pos;
-	struct s_color	color;
+	struct s_pt		color;
 	double			r;
 }	t_sp;
 
@@ -78,14 +71,14 @@ typedef struct s_pl
 {
 	struct s_pt		pos;
 	struct s_pt		dir;
-	struct s_color	color;
+	struct s_pt		color;
 }	t_pl;
 
 typedef struct s_cy
 {
 	struct s_pt		pos;
 	struct s_pt		dir;
-	struct s_color	color;
+	struct s_pt		color;
 	double			r;
 	double			height;
 }	t_cy;
@@ -94,7 +87,7 @@ typedef struct s_cy
 typedef struct s_obj
 {
 	int				type;
-	void			*obj;
+	void			*obj_info;
 }	t_obj;
 
 /* object에 광선이 맞았는지 아닌지 체크하기 위한 정보 */
@@ -106,7 +99,7 @@ typedef struct s_hit_check
 	double		t_min;
 	double		t_max;
 	int			front_face;
-	t_color		albedo;
+	t_pt		albedo;
 }	t_hit_check;
 
 /* 추적할 광선에 대한 정보 */
@@ -133,10 +126,13 @@ typedef struct s_info
 	t_list				*objs;
 }	t_info;
 
+double	vlength2(t_pt vec);
+double	vlength(t_pt vec);
 t_pt	vunit(t_pt vec);
 t_pt	vadd(t_pt vec1, t_pt vec2);
 t_pt	vsub(t_pt vec1, t_pt vec2);
 t_pt	vmult(t_pt vec, double num);
+t_pt	vmult_vec(t_pt vec1, t_pt vec2);
 t_pt	vdiv(t_pt vec, double t);
 double	vdot(t_pt vec1, t_pt vec2);
 t_pt	vcross(t_pt vec1, t_pt vec2);

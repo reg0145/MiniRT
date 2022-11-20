@@ -36,6 +36,7 @@ void	read_file(char *file, char **content)
 		ft_error("can't open file");
 	while (1)
 	{
+		ft_memset(buf, 0, BUFFER_SIZE);
 		read_size = read(fd, buf, BUFFER_SIZE);
 		if (read_size < 0)
 			break ;
@@ -123,19 +124,19 @@ double	ft_atod(char *str)
 	return (result);
 }
 
-t_color	ft_get_color(char *str)
+t_pt	ft_get_color(char *str)
 {
 	char	**colors;
-	t_color	color;
+	t_pt	color;
 
 	colors = ft_split(str, ',');
 	if (!colors)
 		ft_error("malloc failed");
 	if (ft_strslen(colors) != 3)
 		ft_error("wrong input : color must be 3 numbers");
-	color = (t_color){ft_atoi(colors[0]), ft_atoi(colors[1]), ft_atoi(colors[2])};
+	color = (t_pt){ft_atoi(colors[0]), ft_atoi(colors[1]), ft_atoi(colors[2])};
 	ft_free_strs(colors);
-	if (color.b < 0 || color.b > 255 || color.g < 0 || color.g > 255 || color.r < 0 || color.r > 255)
+	if (color.z < 0 || color.z > 255 || color.y < 0 || color.y > 255 || color.x < 0 || color.x > 255)
 		ft_error("wrong input : color must be 0 ~ 255");
 	return (color);
 }
@@ -210,10 +211,10 @@ void	parse_sphere(char **args, t_info *info)
 	if (!obj || !new_sp)
 		ft_error("malloc failed");
 	new_sp->pos = get_pt(args[1]);
-	new_sp->r = ft_atod(args[2]);
+	new_sp->r = ft_atod(args[2]) / 2;
 	new_sp->color = ft_get_color(args[3]);
+	obj->obj_info = new_sp;
 	obj->type = SPHERE;
-	obj->obj = new_sp;
 	new = ft_lstnew(obj);
 	if (!new)
 		ft_error("malloc failed");
@@ -236,7 +237,7 @@ void	parse_plane(char **args, t_info *info)
 	new_pl->dir = get_pt(args[2]);
 	new_pl->color = ft_get_color(args[3]);
 	obj->type = PLANE;
-	obj->obj = new_pl;
+	obj->obj_info = new_pl;
 	new = ft_lstnew(obj);
 	if (!new)
 		ft_error("malloc failed");
@@ -257,11 +258,11 @@ void	parse_cylinder(char **args, t_info *info)
 		ft_error("malloc failed");
 	new_cy->pos = get_pt(args[1]);
 	new_cy->dir = get_pt(args[2]);
-	new_cy->r = ft_atod(args[3]);
+	new_cy->r = ft_atod(args[3]) / 2;
 	new_cy->height = ft_atod(args[4]);
 	new_cy->color = ft_get_color(args[5]);
 	obj->type = CYLINDER;
-	obj->obj = new_cy;
+	obj->obj_info = new_cy;
 	new = ft_lstnew(obj);
 	if (!new)
 		ft_error("malloc failed");

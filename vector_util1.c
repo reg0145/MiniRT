@@ -57,3 +57,8 @@ t_pt	vreflect(t_pt vec, t_pt n_vec)
 {
 	return (vsub(vec, vmult(n_vec, 2 * vdot(vec, n_vec))));
 }
+
+t_pt	vmult_vec(t_pt vec1, t_pt vec2)
+{
+	return ((t_pt){vec1.x * vec2.x, vec1.y * vec2.y, vec1.z * vec2.z});
+}

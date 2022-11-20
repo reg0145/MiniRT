@@ -53,7 +53,7 @@ BNSC = ft_lstnew.c \
 
 OBJS = $(SRCS:.c=.o)
 BNSO = $(BNSC:.c=.o)
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 all : $(NAME)
 
