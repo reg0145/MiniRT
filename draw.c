@@ -155,7 +155,10 @@ t_hit_check check_objs(t_info *info, t_ray ray, t_hit_check hit)
 		obj = (t_obj *)list->content;
 		tmp = hit_check(obj, ray, hit);
 		if (tmp.t > 0 && tmp.t < hit.t)
+		{
 			hit = tmp;
+			hit.t_max = hit.t;
+		}
 		list = list->next;
 	}
 	return (hit);
@@ -174,10 +177,11 @@ t_pt	check_light(t_info *info, t_ray ray, t_hit_check hit)
 	pong.dif = vmult(info->light.color, pong.kd * info->light.ratio);
 	pong.view_dir = vunit(vmult(ray.dir, -1));	//보이는 방향(카메라 방향)
 	pong.ref_dir = vreflect(vmult(pong.lig_dir, -1), hit.dir);	//반사된 광선
+	pong.ksn = 511; //반사광 강도
 	pong.ks = 1;	//광택 정도
-	pong.ksn = 34; //반사광 강도
 	pong.spec = pow(fmax(vdot(pong.lig_dir, pong.ref_dir), 0), pong.ksn);	//반사된 광선과 보이는 방향의 내적. 90도면 0이 될것...!
-	pong.specular = vmult((vmult(info->light.color, pong.spec)), pong.spec);
+	pong.specular = vmult((vmult(info->light.color, pong.ks * \
+		info->light.ratio)), pong.spec);
 	color = vadd(vadd(pong.dif, pong.specular), \
 		vmult(info->amb.color, info->amb.ratio)); // 광택 + 난반사
 	return (vsub(vmult_vec(hit.albedo, color), (t_pt){1,1,1}));
@@ -188,7 +192,7 @@ t_pt	check_color(t_info *info, t_ray ray, t_hit_check hit)
 	(void)hit;
 	(void)ray;
 	(void)info;
-	if (hit.t > hit.t_min && hit.t < hit.t_max)
+	if (hit.t < 10000)
 		return (check_light(info, ray, hit));
 	return ((t_pt){0, 0, 0});
 }

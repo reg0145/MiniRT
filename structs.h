@@ -116,8 +116,6 @@ typedef struct s_pong
 	double		kd;
 	double		ks;
 	double		ksn;
-	double		ls;
-	double		ld;
 	t_pt		dif;	// 난반사
 	double		spec;	// 입사각, 반사각 사이의 각도
 	t_pt		specular;	// 반사광

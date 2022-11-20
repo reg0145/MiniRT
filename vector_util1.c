@@ -53,9 +53,9 @@ t_pt	vcross(t_pt vec1, t_pt vec2)
 	return ((t_pt){vec1.y * vec2.z - vec1.z * vec2.y, vec1.z * vec2.x - vec1.x * vec2.z, vec1.x * vec2.y - vec1.y * vec2.x});
 }
 
-t_pt	vreflect(t_pt vec, t_pt n_vec)
+t_pt	vreflect(t_pt origin, t_pt dir)
 {
-	return (vsub(vec, vmult(n_vec, 2 * vdot(vec, n_vec))));
+	return (vsub(origin, vmult(dir, 2 * vdot(origin, dir))));
 }
 
 t_pt	vmult_vec(t_pt vec1, t_pt vec2)
