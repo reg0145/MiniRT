@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:06:48 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 17:20:45 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/21 22:02:39 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,21 @@ static void	parse(char *av, t_info *info)
 	parse_to_info(content, info);
 }
 
+static int	close_window(t_info *info)
+{
+	mlx_destroy_window(info->mlx, info->win);
+	exit(0);
+}
+
 static void	exceve(t_info *info)
 {
 	mlx_info_init(info);
 	draw(info);
-	mlx_key_hook(info->win, key_press, info);
-	mlx_mouse_hook(info->win, mouse_click, info);
+	mlx_hook(info->win, 2, 0, key_press, info);
+	mlx_hook(info->win, 17, 0, close_window, info);
+	mlx_hook(info->win, 4, 0, mouse_click, info);
+	// mlx_key_hook(info->win, key_press, info);
+	// mlx_mouse_hook(info->win, mouse_click, info);
 	mlx_loop(info->mlx);
 }
 
