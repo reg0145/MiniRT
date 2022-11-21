@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:21:02 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 17:42:50 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/21 20:24:17 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,30 @@ void	rotate_obj(t_pt *dir, t_pt rot)
 {
 	t_pt	tmp;
 
-	tmp.x = dir->x;
-	tmp.y = dir->y;
-	tmp.z = dir->z;
-	dir->x = tmp.x * cos(rot.x) + tmp.y * sin(rot.x);
-	dir->y = tmp.y * cos(rot.y) + tmp.z * sin(rot.y);
-	dir->z = tmp.z * cos(rot.z) + tmp.x * sin(rot.z);
+	tmp = (t_pt){dir->x, dir->y, dir->z};
+	dir->x = tmp.x + tmp.x * cos(rot.x) - tmp.z * sin(rot.x) \
+		+ tmp.x * cos(rot.x) - tmp.y * sin(rot.x);
+	dir->y = tmp.y + tmp.y * cos(rot.y) - tmp.x * sin(rot.y) \
+		+ tmp.y * cos(rot.y) - tmp.z * sin(rot.y);
+	dir->z = tmp.z + tmp.z * cos(rot.z) - tmp.y * sin(rot.z) \
+		+ tmp.z * cos(rot.z) - tmp.x * sin(rot.z);
+	*dir = vunit(*dir);
 }
 
 void	rotate_camera(t_cam *cam, int keycode)
 {
 	if (keycode == KEY_UP)
-		move_obj(&cam->dir, (t_pt){0, 0, 0.2});
+		rotate_obj(&cam->dir, (t_pt){0, 0, 0.2});
 	if (keycode == KEY_DOWN)
-		move_obj(&cam->dir, (t_pt){0, 0, -0.2});
+		rotate_obj(&cam->dir, (t_pt){0, 0, -0.2});
 	if (keycode == KEY_LEFT)
-		move_obj(&cam->dir, (t_pt){-0.2, 0, 0});
+		rotate_obj(&cam->dir, (t_pt){-0.2, 0, 0});
 	if (keycode == KEY_RIGHT)
-		move_obj(&cam->dir, (t_pt){0.2, 0, 0});
+		rotate_obj(&cam->dir, (t_pt){0.2, 0, 0});
 	if (keycode == KEY_Z)
-		move_obj(&cam->dir, (t_pt){0, 0.2, 0});
+		rotate_obj(&cam->dir, (t_pt){0, 0.2, 0});
 	if (keycode == KEY_X)
-		move_obj(&cam->dir, (t_pt){0, -0.2, 0});
+		rotate_obj(&cam->dir, (t_pt){0, -0.2, 0});
 }
 
 void	rotate_plane(t_pl *plane, int keycode)
