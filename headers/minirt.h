@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:40:54 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 00:55:24 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 00:58:10 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define KSN 50	//광택 계수 (매끄러울수록 높음, 높을수록 하이라이팅 범위가 줄어듬)
 # define KS 1	//광택 정도
 
-# define MOVEMENT 0.5
+# define MOVEMENT 0.2
 # define ROTATION 0.2
 
 typedef enum e_obj
