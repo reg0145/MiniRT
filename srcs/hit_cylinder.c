@@ -6,13 +6,14 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:32:47 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 21:00:52 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 02:02:46 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minirt.h"
 #include <math.h>
 
+/* 구!!!!!!!  현!!!!!!!  필!!!!!!!  요!!!!!!! */
 int	hit_cylinder(t_cy *cy, t_ray ray, t_hit_check *hit)
 {
 	t_pt	op;
