@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:40:57 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 20:00:33 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 00:55:12 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ typedef struct s_info
 	struct s_ambient	amb;
 	struct s_cam		cam;
 	struct s_light		light;
+	/* event 관련 정보 */
 	void				*clicked;
 	int					clicked_type;
 	t_list				*objs;

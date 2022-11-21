@@ -6,27 +6,29 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:47:35 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 17:20:29 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 00:54:48 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "key_code.h"
 
-static void	key_move(void *clicked, int type, int keycode)
+/* 물체 이동 (카메라가 보는 방향 기준에서 이동) */
+static void	key_move(void *clicked, int type, t_pt dir, int keycode)
 {
 	if (type == PLANE)
-		move_plane((t_pl *)((t_obj *)clicked)->obj_info, keycode);
+		move_plane((t_pl *)((t_obj *)clicked)->obj_info, dir, keycode);
 	if (type == SPHERE)
-		move_sphere((t_sp *)((t_obj *)clicked)->obj_info, keycode);
+		move_sphere((t_sp *)((t_obj *)clicked)->obj_info, dir, keycode);
 	if (type == CYLINDER)
-		move_cylinder((t_cy *)((t_obj *)clicked)->obj_info, keycode);
+		move_cylinder((t_cy *)((t_obj *)clicked)->obj_info, dir, keycode);
 	if (type == LIGHT)
-		move_light((t_light *)clicked, keycode);
+		move_light((t_light *)clicked, dir, keycode);
 	if (type == CAMERA)
 		move_camera((t_cam *)clicked, keycode);
 }
 
+/* 물체 회전 */
 static void	key_rotate(void *clicked, int type, int keycode)
 {
 	if (type == PLANE)
@@ -80,7 +82,7 @@ int	key_press(int keycode, t_info *info)
 	if (is_rotate_key(keycode))
 		key_rotate(info->clicked, info->clicked_type, keycode);
 	else
-		key_move(info->clicked, info->clicked_type, keycode);
+		key_move(info->clicked, info->clicked_type, info->cam.dir, keycode);
 	draw(info);
 	return (0);
 }

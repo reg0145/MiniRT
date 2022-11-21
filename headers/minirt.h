@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:40:54 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 21:39:48 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 00:55:24 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # define KSN 50	//광택 계수 (매끄러울수록 높음, 높을수록 하이라이팅 범위가 줄어듬)
 # define KS 1	//광택 정도
 
-# define MOVEMENT 0.1
-# define ROTATION 0.1
+# define MOVEMENT 0.5
+# define ROTATION 0.2
 
 typedef enum e_obj
 {
@@ -69,10 +69,10 @@ t_ray	ray_init(t_info *info, double x, double y);
 int		key_press(int keycode, t_info *info);
 void	move_obj(t_pt *pos, t_pt dir);
 void	move_camera(t_cam *cam, int keycode);
-void	move_light(t_light *light, int keycode);
-void	move_sphere(t_sp *sphere, int keycode);
-void	move_plane(t_pl *plane, int keycode);
-void	move_cylinder(t_cy *cylinder, int keycode);
+void	move_light(t_light *light, t_pt dir, int keycode);
+void	move_sphere(t_sp *sphere, t_pt dir, int keycode);
+void	move_plane(t_pl *plane, t_pt dir, int keycode);
+void	move_cylinder(t_cy *cylinder, t_pt dir, int keycode);
 
 /* rotate objects */
 void	rotate_obj(t_pt *dir, t_pt rot);

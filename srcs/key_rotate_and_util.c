@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:21:02 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 21:37:04 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 00:33:33 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,40 +43,34 @@ void	rotate_obj(t_pt *dir, t_pt rot)
 		dir->x = tmp.x * cos(rot.z) - tmp.y * sin(rot.z);
 		dir->y = tmp.x * sin(rot.z) + tmp.y * cos(rot.z);
 	}
-	// dir->x = tmp.x + tmp.x * cos(rot.x) - tmp.z * sin(rot.x) \
-	// 	+ tmp.x * cos(rot.x) - tmp.y * sin(rot.x);
-	// dir->y = tmp.y + tmp.y * cos(rot.y) - tmp.x * sin(rot.y) \
-	// 	+ tmp.y * cos(rot.y) - tmp.z * sin(rot.y);
-	// dir->z = tmp.z + tmp.z * cos(rot.z) - tmp.y * sin(rot.z) \
-	// 	+ tmp.z * cos(rot.z) - tmp.x * sin(rot.z);
-	// *dir = vunit(*dir);
+	*dir = vunit(*dir);
 }
 
 void	rotate_camera(t_cam *cam, int keycode)
 {
-	if (keycode == KEY_UP)
-		rotate_obj(&cam->dir, (t_pt){0, 0, ROTATION});
-	if (keycode == KEY_DOWN)
-		rotate_obj(&cam->dir, (t_pt){0, 0, -ROTATION});
-	if (keycode == KEY_LEFT)
-		rotate_obj(&cam->dir, (t_pt){-ROTATION, 0, 0});
-	if (keycode == KEY_RIGHT)
-		rotate_obj(&cam->dir, (t_pt){ROTATION, 0, 0});
 	if (keycode == KEY_Z)
-		rotate_obj(&cam->dir, (t_pt){0, ROTATION, 0});
+		rotate_obj(&cam->dir, (t_pt){0, 0, ROTATION});
 	if (keycode == KEY_X)
+		rotate_obj(&cam->dir, (t_pt){0, 0, -ROTATION});
+	if (keycode == KEY_UP)
+		rotate_obj(&cam->dir, (t_pt){-ROTATION, 0, 0});
+	if (keycode == KEY_DOWN)
+		rotate_obj(&cam->dir, (t_pt){ROTATION, 0, 0});
+	if (keycode == KEY_LEFT)
+		rotate_obj(&cam->dir, (t_pt){0, ROTATION, 0});
+	if (keycode == KEY_RIGHT)
 		rotate_obj(&cam->dir, (t_pt){0, -ROTATION, 0});
 }
 
 void	rotate_plane(t_pl *plane, int keycode)
 {
-	if (keycode == KEY_UP)
-		rotate_obj(&plane->dir, (t_pt){0, 0, ROTATION});
-	if (keycode == KEY_DOWN)
-		rotate_obj(&plane->dir, (t_pt){0, 0, -ROTATION});
 	if (keycode == KEY_LEFT)
-		rotate_obj(&plane->dir, (t_pt){-ROTATION, 0, 0});
+		rotate_obj(&plane->dir, (t_pt){0, 0, ROTATION});
 	if (keycode == KEY_RIGHT)
+		rotate_obj(&plane->dir, (t_pt){0, 0, -ROTATION});
+	if (keycode == KEY_UP)
+		rotate_obj(&plane->dir, (t_pt){-ROTATION, 0, 0});
+	if (keycode == KEY_DOWN)
 		rotate_obj(&plane->dir, (t_pt){ROTATION, 0, 0});
 	if (keycode == KEY_Z)
 		rotate_obj(&plane->dir, (t_pt){0, ROTATION, 0});
