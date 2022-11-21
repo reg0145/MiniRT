@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:56:02 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 14:52:13 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 03:15:20 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,19 @@ void	read_file(char *file, char **content)
 	}
 }
 
-static void	check_duplicate_info(char key, int *flag)
+static void	check_duplicate_info(char *key, int *flag)
 {
-	if (key == 'A' && *flag & AMB)
+	if (!ft_strcmp(key, "A") && *flag & AMB)
 		ft_error("'A' can be only one");
-	if (key == 'C' && *flag & CAM)
+	if (!ft_strcmp(key, "C") && *flag & CAM)
 		ft_error("'C' can be only one");
-	if (key == 'L' && *flag & LIT)
+	if (!ft_strcmp(key, "L") && *flag & LIT)
 		ft_error("'L' can be only one");
-	if (key == 'A')
+	if (!ft_strcmp(key, "A"))
 		*flag |= AMB;
-	if (key == 'C')
+	if (!ft_strcmp(key, "C"))
 		*flag |= CAM;
-	if (key == 'L')
+	if (!ft_strcmp(key, "L"))
 		*flag |= LIT;
 }
 
@@ -73,18 +73,18 @@ static void	parse_a_line(char *line, int *flag, t_info *info)
 	args = ft_split(line, ' ');
 	if (!args)
 		ft_error("malloc failed");
-	check_duplicate_info(*line, flag);
-	if (!ft_strncmp(line, "A ", 2))
+	check_duplicate_info(args[0], flag);
+	if (!ft_strcmp(args[0], "A"))
 		parse_ambient(args, info);
-	else if (!ft_strncmp(line, "C ", 2))
+	else if (!ft_strcmp(args[0], "C"))
 		parse_camera(args, info);
-	else if (!ft_strncmp(line, "L ", 2))
+	else if (!ft_strcmp(args[0], "L"))
 		parse_light(args, info);
-	else if (!ft_strncmp(line, "sp ", 3))
+	else if (!ft_strcmp(args[0], "sp"))
 		parse_sphere(args, info);
-	else if (!ft_strncmp(line, "pl ", 3))
+	else if (!ft_strcmp(args[0], "pl"))
 		parse_plane(args, info);
-	else if (!ft_strncmp(line, "cy ", 3))
+	else if (!ft_strcmp(args[0], "cy"))
 		parse_cylinder(args, info);
 	else
 		ft_error("wrong input : undefined identifier");

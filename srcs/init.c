@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:43:49 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 01:48:14 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 02:42:55 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,16 @@ t_ray	ray_init(t_info *info, double x, double y)
 void	mlx_info_init(t_info *info)
 {
 	info->mlx = mlx_init();
+	if (!info->mlx)
+		ft_error("mlx_init() failed");
 	info->win = mlx_new_window(info->mlx, WIDTH, HEIGHT, "miniRT");
+	if (!info->win)
+		ft_error("mlx_new_window() failed");
 	info->img = mlx_new_image(info->mlx, WIDTH, HEIGHT);
+	if (!info->img)
+		ft_error("mlx_new_image() failed");
 	info->addr = mlx_get_data_addr(info->img, &info->bpp, \
 		&info->size_line, &info->endian);
+	if (!info->addr)
+		ft_error("mlx_get_data_addr() failed");
 }
