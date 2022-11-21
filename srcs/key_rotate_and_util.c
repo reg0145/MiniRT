@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:21:02 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 20:24:17 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/21 21:06:24 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ void	rotate_obj(t_pt *dir, t_pt rot)
 void	rotate_camera(t_cam *cam, int keycode)
 {
 	if (keycode == KEY_UP)
-		rotate_obj(&cam->dir, (t_pt){0, 0, 0.2});
+		rotate_obj(&cam->dir, (t_pt){0, 0, 0.1});
 	if (keycode == KEY_DOWN)
-		rotate_obj(&cam->dir, (t_pt){0, 0, -0.2});
+		rotate_obj(&cam->dir, (t_pt){0, 0, -0.1});
 	if (keycode == KEY_LEFT)
-		rotate_obj(&cam->dir, (t_pt){-0.2, 0, 0});
+		rotate_obj(&cam->dir, (t_pt){-0.1, 0, 0});
 	if (keycode == KEY_RIGHT)
-		rotate_obj(&cam->dir, (t_pt){0.2, 0, 0});
+		rotate_obj(&cam->dir, (t_pt){0.1, 0, 0});
 	if (keycode == KEY_Z)
-		rotate_obj(&cam->dir, (t_pt){0, 0.2, 0});
+		rotate_obj(&cam->dir, (t_pt){0, 0.1, 0});
 	if (keycode == KEY_X)
-		rotate_obj(&cam->dir, (t_pt){0, -0.2, 0});
+		rotate_obj(&cam->dir, (t_pt){0, -0.1, 0});
 }
 
 void	rotate_plane(t_pl *plane, int keycode)

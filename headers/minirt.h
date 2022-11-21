@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:40:54 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 16:33:11 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/21 21:02:29 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "structs.h"
 
-# define WIDTH 1200
-# define HEIGHT 900
+# define WIDTH 720
+# define HEIGHT 600
 # define TRUE 1
 # define FALSE 0
 
@@ -90,10 +90,14 @@ void	parse_cylinder(char **args, t_info *info);
 
 void	draw(t_info *info);
 
-int		check_objs(t_info *info, t_ray ray, t_hit_check *hit);
-
 int		mouse_click(int button, int x, int y, void *param);
 
+/* for check_hit */
+int		check_objs(t_info *info, t_ray ray, t_hit_check *hit);
 int		hit_check(t_obj *obj, t_ray ray, t_hit_check *hit);
+int		hit_cylinder(t_cy *cy, t_ray ray, t_hit_check *hit);
+int		hit_plane(t_pl *pl, t_ray ray, t_hit_check *hit);
+int		hit_sphere(t_sp *sp, t_ray ray, t_hit_check *hit);
+double	root_formula(double a, double b, double c, t_hit_check *hit);
 
 #endif
