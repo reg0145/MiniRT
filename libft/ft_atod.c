@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:43:14 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 12:43:17 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 01:56:24 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,22 @@ static void	check_minus_and_format(char **str, int *minus)
 		ft_error("worng input : type must be double");
 }
 
+static double	add_decimal(char *str, double num)
+{
+	double	tmp;
+
+	tmp = 10;
+	while (*str && ft_isdigit(*str))
+	{
+		num += (*str - '0') / tmp;
+		tmp *= 10;
+		str++;
+	}
+	if (*str && !ft_isdigit(*str))
+		ft_error("worng input : type should be number");
+	return (num);
+}
+
 double	ft_atod(char *str)
 {
 	double			num;
@@ -58,14 +74,6 @@ double	ft_atod(char *str)
 	if (*str && *(str++) != '.')
 		ft_error("worng input : type should be number");
 	result = (double)(num * minus);
-	num = 10;
-	while (ft_isdigit(*str) && *str)
-	{
-		result += (*str - '0') / num;
-		num *= 10;
-		str++;
-	}
-	if (*str && !ft_isdigit(*str))
-		ft_error("worng input : type should be number");
+	result = add_decimal(str, result);
 	return (result);
 }

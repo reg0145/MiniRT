@@ -6,22 +6,12 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 21:27:05 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 00:12:58 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 01:47:55 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../headers/minirt.h"
 #include "key_code.h"
-
-
-static t_pt	cam_set_vup(t_pt dir)
-{
-	if (dir.x == 0 && dir.y != 0 && dir.z == 0)
-		return ((t_pt){0, dir.y, 1e-6});
-	else
-		return ((t_pt){0, 1, 0});
-}
 
 void	move_camera(t_cam *cam, int keycode)
 {

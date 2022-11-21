@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:43:49 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 01:09:22 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 01:48:14 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../mlx/mlx.h"
 #include <math.h>
 
-static t_pt	cam_set_vup(t_pt dir)
+t_pt	cam_set_vup(t_pt dir)
 {
 	if (dir.x == 0 && dir.y != 0 && dir.z == 0)
 		return ((t_pt){0, dir.y, 1e-6});

@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:21:02 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 01:40:22 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 01:44:37 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@ void	move_obj(t_pt *pos, t_pt dir)
 	*pos = vadd(*pos, dir);
 }
 
-/*
-	3차원 벡터 회전을 위해서는 행렬계산이 필요하다고 한다.
-
- */
 void	rotate_obj(t_pt *dir, t_pt rot)
 {
 	t_pt	tmp;

@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:40:54 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 01:20:28 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 01:48:27 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_pt	parse_pt(char *str);
 t_pt	parse_n_vec(char *str);
 
 void	mlx_info_init(t_info *info);
+t_pt	cam_set_vup(t_pt dir);
 void	cam_init(t_info *info);
 t_ray	ray_init(t_info *info, double x, double y);
 
