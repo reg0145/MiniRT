@@ -6,13 +6,13 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 14:19:41 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/19 14:19:47 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/21 12:44:44 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
 	while (*s1 && *s2 && *s1 == *s2)
 	{
