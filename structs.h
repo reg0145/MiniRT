@@ -95,13 +95,13 @@ typedef struct s_obj
 /* object에 광선이 맞았는지 아닌지 체크하기 위한 정보 */
 typedef struct s_hit_check
 {
-	t_pt		pos;
-	t_pt		dir;
-	double		t;
-	double		t_min;
-	double		t_max;
-	int			front_face;
-	t_pt		albedo;
+	t_pt		pos;	// 광선과 object가 만나는 지점
+	t_pt		n_vec;	// 법선 벡터
+	double		t;		// 광선과 object가 만나는 지점까지의 거리
+	double		t_min;	// 광선과 object가 만나는 지점까지의 최소 거리 (화면에 나타날 수 있는 최소 거리)
+	double		t_max;	// 광선과 object가 만나는 지점까지의 최대 거리 (화면에 나타날 수 있는 최대 거리)
+	t_pt		albedo;	// object의 색깔
+	int			is_surface;	// object의 surface에 있는지 체크
 }	t_hit_check;
 
 /* 추적할 광선에 대한 정보 */

@@ -71,8 +71,8 @@ t_pt	vmin(t_pt vec1, t_pt vec2)
 	if (vec1.x > vec2.x)
 		min.x = vec2.x;
 	if (vec1.y > vec2.y)
-		min.y = vec1.y;
+		min.y = vec2.y;
 	if (vec1.z > vec2.z)
-		min.z = vec1.z;
+		min.z = vec2.z;
 	return (min);
 }
