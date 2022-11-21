@@ -219,7 +219,7 @@ t_pt	check_light(t_info *info, t_ray ray, t_hit_check hit)
 	pong.dif = vmult(info->light.color, pong.kd * info->light.ratio); // 난반사 적용
 	pong.view_dir = vunit(vmult(ray.dir, -1));	//보이는 방향(카메라 방향)
 	pong.ref_dir = vreflect(vmult(pong.lig_dir, -1), hit.n_vec);	//반사된 광선
-	pong.ksn = 511; //광택 계수 (매끄러울수록 높음, 높을수록 하이라이팅 범위가 줄어듬)
+	pong.ksn = 50; //광택 계수 (매끄러울수록 높음, 높을수록 하이라이팅 범위가 줄어듬)
 	pong.ks = 1;	//광택 정도
 	pong.spec = pow(fmax(vdot(pong.view_dir, pong.ref_dir), 0.0), pong.ksn);	//반사된 광선과 보이는 방향의 내적. 90도면 0이 될것...!
 	pong.specular = vmult((vmult(info->light.color, pong.ks * \
@@ -230,7 +230,7 @@ t_pt	check_light(t_info *info, t_ray ray, t_hit_check hit)
 		(void)color;
 	color = vmin(vmult_vec(color, hit.albedo), (t_pt){1, 1, 1}); // albedo 적용
 	if (hit.is_surface)
-	// 	// color = vadd(vmult(color, 0.5), vmult(info->light.color, 0.5)); //표면인 경우 반사체면 반사도를 반으로 줄임
+		// color = vadd(vmult(color, 0.5), vmult(info->light.color, 0.5)); //표면인 경우 반사체면 반사도를 반으로 줄임...(경계면 표현, object와 object 사이에는 적용 못함ㅠㅠ)
 		color = vmult(color, 0.5); //표면인 경우 반사체면 반사도를 반으로 줄임... (경계면 표현, object와 object 사이에는 적용 못함ㅠㅠ)
 	return (color); 
 }
