@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:31:08 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 12:32:32 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 19:18:22 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_pt	parse_color(char *str)
 		ft_error("malloc failed");
 	if (ft_strslen(colors) != 3)
 		ft_error("wrong input : color must be 3 numbers");
-	color = (t_pt){ft_atoi(colors[0]), ft_atoi(colors[1]), ft_atoi(colors[2])};
+	color = (t_pt){ft_atod(colors[0]), ft_atod(colors[1]), ft_atod(colors[2])};
 	ft_free_strs(colors);
 	if (color.z < 0 || color.z > 255 || color.y < 0 || color.y > 255 || \
 		color.x < 0 || color.x > 255)
