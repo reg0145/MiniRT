@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:55:52 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 17:34:56 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 19:46:36 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ void	parse_plane(char **args, t_info *info)
 		ft_error("malloc failed");
 	new_pl->pos = parse_pt(args[1]);
 	new_pl->dir = parse_pt(args[2]);
-	if (new_pl->dir.x < -1 || new_pl->dir.x > 1 || new_pl->dir.y < -1 || \
-		new_pl->dir.y > 1 || new_pl->dir.z < -1 || new_pl->dir.z > 1)
-		ft_error("wrong input : plane normal vector must be -1 ~ 1");
+	check_n_vec(new_pl->dir);
 	new_pl->color = parse_color(args[3]);
 	obj->type = PLANE;
 	obj->obj_info = new_pl;
@@ -75,9 +73,7 @@ void	parse_cylinder(char **args, t_info *info)
 		ft_error("malloc failed");
 	new_cy->pos = parse_pt(args[1]);
 	new_cy->dir = parse_pt(args[2]);
-	if (new_cy->dir.x < -1 || new_cy->dir.x > 1 || new_cy->dir.y < -1 || \
-		new_cy->dir.y > 1 || new_cy->dir.z < -1 || new_cy->dir.z > 1)
-		ft_error("wrong input : cylinder normal vector must be -1 ~ 1");
+	check_n_vec(new_cy->dir);
 	new_cy->r = ft_atod(args[3]) / 2;
 	new_cy->height = ft_atod(args[4]);
 	new_cy->color = parse_color(args[5]);

@@ -6,11 +6,20 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:31:08 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 19:18:22 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 19:37:03 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	check_n_vec(t_pt vec)
+{
+	t_pt	tmp;
+
+	tmp = vunit(vec);
+	if (tmp.x != vec.x || tmp.y != vec.y || tmp.z != vec.z)
+		ft_error("vector is not normalized");
+}
 
 t_pt	parse_color(char *str)
 {

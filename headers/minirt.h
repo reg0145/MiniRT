@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:40:54 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 02:33:12 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 19:37:16 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	parse_light(char **args, t_info *info);
 void	parse_sphere(char **args, t_info *info);
 void	parse_plane(char **args, t_info *info);
 void	parse_cylinder(char **args, t_info *info);
+void	check_n_vec(t_pt vec);
 
 void	draw(t_info *info);
 

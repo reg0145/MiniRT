@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_major_objects.c                              :+:      :+:    :+:   */
+/*   parse_major_object.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:38:22 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 12:38:22 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 19:44:21 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void	parse_camera(char **args, t_info *info)
 		ft_error("wrong input : 'C' must be 4 arguments");
 	info->cam.pos = parse_pt(args[1]);
 	info->cam.dir = parse_pt(args[2]);
-	if (info->cam.dir.x < -1 || info->cam.dir.x > 1 || info->cam.dir.y < -1 || \
-		info->cam.dir.y > 1 || info->cam.dir.z < -1 || info->cam.dir.z > 1)
-		ft_error("wrong input : camera normal vector must be -1 ~ 1");
+	check_n_vec(info->cam.dir);
 	info->cam.fov = ft_atod(args[3]);
 }
 
