@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:43:49 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 02:42:55 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/23 14:56:41 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	mlx_info_init(t_info *info)
 	info->mlx = mlx_init();
 	if (!info->mlx)
 		ft_error("mlx_init() failed");
-	info->win = mlx_new_window(info->mlx, WIDTH, HEIGHT, "miniRT");
+	info->win = mlx_new_window(info->mlx, WIDTH, HEIGHT + 100, "miniRT");
 	if (!info->win)
 		ft_error("mlx_new_window() failed");
 	info->img = mlx_new_image(info->mlx, WIDTH, HEIGHT);
@@ -68,4 +68,9 @@ void	mlx_info_init(t_info *info)
 		&info->size_line, &info->endian);
 	if (!info->addr)
 		ft_error("mlx_get_data_addr() failed");
+	print_key_info(info);
+	mlx_string_put(info->mlx, info->win, 250, HEIGHT + 20, 0xFFFFFF, \
+		"C : select camera");
+	mlx_string_put(info->mlx, info->win, 420, HEIGHT + 20, 0xFFFFFF, \
+		"L : select light");
 }

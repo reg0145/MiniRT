@@ -6,14 +6,22 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:54:05 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 02:32:41 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/23 14:28:54 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "key_code.h"
 #include "../headers/minirt.h"
 
-static int	check_objs_clicked(t_info *info, t_ray ray, t_hit_check *hit)
+static void	renew_hit(t_info *info, t_obj *obj, t_obj **hit_obj)
+{
+	info->clicked = obj;
+	info->clicked_type = obj->type;
+	*hit_obj = obj;
+}
+
+static int	check_objs_clicked(t_info *info, t_ray ray, \
+	t_hit_check *hit, t_obj	**hit_obj)
 {
 	t_obj		*obj;
 	t_hit_check	tmp;
@@ -30,8 +38,7 @@ static int	check_objs_clicked(t_info *info, t_ray ray, t_hit_check *hit)
 		{
 			if (tmp.t_max > tmp.t)
 			{
-				info->clicked = obj;
-				info->clicked_type = obj->type;
+				renew_hit(info, obj, hit_obj);
 				tmp.t_max = tmp.t;
 				return_value = TRUE;
 				*hit = tmp;
@@ -42,16 +49,20 @@ static int	check_objs_clicked(t_info *info, t_ray ray, t_hit_check *hit)
 	return (return_value);
 }
 
-static int	trace_ray(t_info *info, t_ray ray)
+static int	trace_ray_clicked(t_info *info, t_ray ray)
 {
+	t_obj		*hit_obj;
 	t_hit_check	hit;
 
 	ft_memset(&hit, 0, sizeof(t_hit_check));
 	hit.t_max = 10000;
 	hit.t_min = 1e-6;
 	hit.t = hit.t_max;
-	if (check_objs_clicked(info, ray, &hit))
+	if (check_objs_clicked(info, ray, &hit, &hit_obj))
+	{
+		reverse_color(hit_obj);
 		return (TRUE);
+	}
 	return (FALSE);
 }
 
@@ -60,12 +71,17 @@ int	mouse_click(int button, int x, int y, void *param)
 	t_info	*info;
 	t_ray	ray;
 
-	if (button != LEFT_CLICK)
+	if (button != LEFT_CLICK || x > WIDTH || y > HEIGHT || \
+		x < 0 || y < 0)
 		return (0);
 	info = (t_info *)param;
+	if (info->clicked && (info->clicked_type == SPHERE || \
+		info->clicked_type == PLANE || info->clicked_type == CYLINDER))
+		reverse_color(info->clicked);
 	ray = ray_init(info, (double)x / (WIDTH - 1), \
 					(double)y / (HEIGHT - 1));
-	if (!trace_ray(info, ray))
+	if (!trace_ray_clicked(info, ray))
 		info->clicked = NULL;
+	draw(info);
 	return (0);
 }

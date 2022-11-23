@@ -1,46 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_rotate_and_util.c                              :+:      :+:    :+:   */
+/*   key_rotate.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:21:02 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 02:01:32 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/23 13:49:10 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minirt.h"
 #include "key_code.h"
 #include <math.h>
-
-void	move_obj(t_pt *pos, t_pt dir)
-{
-	*pos = vadd(*pos, dir);
-}
-
-void	rotate_obj(t_pt *dir, t_pt rot)
-{
-	t_pt	tmp;
-
-	tmp = (t_pt){dir->x, dir->y, dir->z};
-	if (rot.x)
-	{
-		dir->y = tmp.y * cos(rot.x) - tmp.z * sin(rot.x);
-		dir->z = tmp.y * sin(rot.x) + tmp.z * cos(rot.x);
-	}
-	if (rot.y)
-	{
-		dir->x = tmp.x * cos(rot.y) - tmp.z * sin(rot.y);
-		dir->z = tmp.x * sin(rot.y) + tmp.z * cos(rot.y);
-	}
-	if (rot.z)
-	{
-		dir->x = tmp.x * cos(rot.z) - tmp.y * sin(rot.z);
-		dir->y = tmp.x * sin(rot.z) + tmp.y * cos(rot.z);
-	}
-	*dir = vunit(*dir);
-}
 
 void	rotate_camera(t_cam *cam, int keycode)
 {
