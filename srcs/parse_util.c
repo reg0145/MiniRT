@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:31:08 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/26 11:27:55 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 11:56:37 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	check_sep(char *str, char sep, int num)
 		str++;
 	}
 	if (num)
-		ft_error("wrong input : wrong number of separators");	
+		ft_error("wrong input : wrong number of separators");
 }
 
 t_pt	parse_color(char *str)

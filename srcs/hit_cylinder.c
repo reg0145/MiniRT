@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:32:47 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/25 12:09:21 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 11:57:17 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	hit_cylinder_side(t_cy *cy, t_ray ray, t_hit_check *hit)
 	tmp = root_formula(a, b, c, hit);
 	if (tmp < hit->t_min || hit->t_max < tmp)
 		return (FALSE);
-	if (fabs(vdot(vsub(vadd(ray.pos, vmult(ray.dir, tmp)), cy->pos), cy->dir))
+	if (fabs(vdot(vsub(vadd(ray.pos, vmult(ray.dir, tmp)), cy->pos), cy->dir)) \
 		 > cy->height / 2) // 원기둥 높이만큼만 나오도록 자르기
 		return (FALSE);
 	hit->t = tmp;
