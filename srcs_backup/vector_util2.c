@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   vector_util2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 17:10:43 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 12:43:46 by nheo             ###   ########.fr       */
+/*   Created: 2022/11/21 14:15:04 by nheo              #+#    #+#             */
+/*   Updated: 2022/11/21 14:15:52 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minirt.h"
+#include <math.h>
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
+double	vlength2(t_pt vec)
 {
-	unsigned char	*dst_p;
-	unsigned char	*src_p;
+	return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+}
 
-	if (!dst && !src)
-		return (0);
-	dst_p = (unsigned char *)dst;
-	src_p = (unsigned char *)src;
-	if (dst_p < src_p)
-		dst = ft_memcpy(dst, src, n);
-	else
-	{
-		while (n)
-		{
-			dst_p[n - 1] = src_p[n - 1];
-			n--;
-		}
-	}
-	return (dst);
+double	vlength(t_pt vec)
+{
+	return (sqrt(vlength2(vec)));
+}
+
+t_pt	vunit(t_pt vec)
+{
+	double	len;
+
+	len = vlength(vec);
+	if (len == 0)
+		ft_error("vector length is 0");
+	vec.x /= len;
+	vec.y /= len;
+	vec.z /= len;
+	return (vec);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nheo <neho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 10:14:50 by nheo              #+#    #+#             */
-/*   Updated: 2021/11/26 14:43:47 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/21 12:17:04 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,6 @@ static char const	*ft_next_strs(char const *s, char c, int i)
 		while (*s && *s != c)
 			s++;
 	return (s);
-}
-
-static char	**ft_free_strs(char **strs)
-{
-	size_t	i;
-
-	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
-		strs[i++] = 0;
-	}
-	free(strs);
-	return (0);
 }
 
 char	**ft_split(char const *s, char c)

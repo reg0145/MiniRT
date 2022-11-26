@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_free_strs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 17:10:43 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 12:43:46 by nheo             ###   ########.fr       */
+/*   Created: 2022/11/21 11:53:44 by nheo              #+#    #+#             */
+/*   Updated: 2022/11/21 12:17:46 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
+char	**ft_free_strs(char **strs)
 {
-	unsigned char	*dst_p;
-	unsigned char	*src_p;
+	size_t	i;
 
-	if (!dst && !src)
-		return (0);
-	dst_p = (unsigned char *)dst;
-	src_p = (unsigned char *)src;
-	if (dst_p < src_p)
-		dst = ft_memcpy(dst, src, n);
-	else
+	i = 0;
+	while (strs[i])
 	{
-		while (n)
-		{
-			dst_p[n - 1] = src_p[n - 1];
-			n--;
-		}
+		free(strs[i]);
+		i++;
 	}
-	return (dst);
+	free(strs);
+	return (NULL);
 }

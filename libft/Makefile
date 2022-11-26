@@ -28,6 +28,7 @@ SRCS = ft_isalpha.c \
 		ft_split.c \
 		ft_itoa.c \
 		ft_error.c \
+		ft_free_strs.c \
 		ft_strslen.c \
 		ft_strcmp.c \
 		ft_strmapi.c \
@@ -36,12 +37,8 @@ SRCS = ft_isalpha.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c \
-		ft_printf.c \
-		ft_based_num.c
-
-HDRS = headers
-
-BNSC = ft_lstnew.c \
+		ft_atod.c \
+		ft_lstnew.c \
 		ft_lstadd_front.c \
 		ft_lstsize.c \
 		ft_lstlast.c \
@@ -51,20 +48,21 @@ BNSC = ft_lstnew.c \
 		ft_lstiter.c \
 		ft_lstmap.c
 
+HDRS = ../headers
+
 OBJS = $(SRCS:.c=.o)
-BNSO = $(BNSC:.c=.o)
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 all : $(NAME)
 
 %.o : %.c
 	gcc $(CFLAGS) -c -o $@ $< -I $(HDRS)
 
-$(NAME) :$(OBJS) $(BNSO)
-	ar rcs $(NAME) $(OBJS) $(BNSO)
+$(NAME) :$(OBJS)
+	ar rcs $(NAME) $(OBJS)
 
 clean :
-	rm -f $(OBJS) $(BNSO)
+	rm -f $(OBJS)
 
 fclean : 
 	clean

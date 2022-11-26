@@ -6,11 +6,10 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 16:27:37 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/20 16:57:19 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/21 12:42:58 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 #include "colors.h"
 

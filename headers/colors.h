@@ -1,35 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 17:10:43 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 12:43:46 by nheo             ###   ########.fr       */
+/*   Created: 2022/11/21 12:40:49 by nheo              #+#    #+#             */
+/*   Updated: 2022/11/21 12:41:12 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef COLORS_H
+# define COLORS_H
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
-{
-	unsigned char	*dst_p;
-	unsigned char	*src_p;
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;36m"
 
-	if (!dst && !src)
-		return (0);
-	dst_p = (unsigned char *)dst;
-	src_p = (unsigned char *)src;
-	if (dst_p < src_p)
-		dst = ft_memcpy(dst, src, n);
-	else
-	{
-		while (n)
-		{
-			dst_p[n - 1] = src_p[n - 1];
-			n--;
-		}
-	}
-	return (dst);
-}
+#endif

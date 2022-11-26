@@ -1,7 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/21 12:41:24 by nheo              #+#    #+#             */
+/*   Updated: 2022/11/21 12:41:27 by nheo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIBFT_H
 # define LIBFT_H
-# include<unistd.h>
-# include<stdlib.h>
+
+# include <unistd.h>
+# include <stdlib.h>
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}				t_list;
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -40,12 +59,8 @@ void	*ft_memmove(void *dst, const void *src, size_t n);
 void	*ft_memchr(const void *src, int c, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_error(char *msg);
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}				t_list;
+double	ft_atod(char *str);
+char	**ft_free_strs(char **strs);
 
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstadd_back(t_list **lst, t_list *new);

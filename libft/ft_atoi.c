@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:16:34 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/19 17:17:44 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/22 01:49:35 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	ft_atoi(const char *str)
 {
 	long long		num;
 	int				minus;
-	int				result;
 
 	num = 0;
 	minus = 1;
@@ -60,6 +59,5 @@ int	ft_atoi(const char *str)
 	}
 	if (*str && !ft_isdigit(*str))
 		ft_error("Error: ft_atoi() input is not a number.");
-	result = (int)(num * minus);
-	return (result);
+	return ((int)(num * minus));
 }
