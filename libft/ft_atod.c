@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:43:14 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 19:17:37 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 19:49:20 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,8 @@ double	ft_atod(char *str)
 {
 	double			num;
 	int				minus;
-	double			result;
 
 	num = 0;
-	result = 0;
 	minus = 1;
 	check_minus_and_format(&str, &minus);
 	while (ft_isdigit(*str) && *str)
@@ -61,7 +59,6 @@ double	ft_atod(char *str)
 	}
 	if (*str && *(str++) != '.')
 		ft_error("worng input : atod() not a number");
-	result = (double)(num * minus);
-	result = add_decimal(str, result);
-	return (result);
+	num = add_decimal(str, num);
+	return ((double)num * minus);
 }
