@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:31:08 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/26 11:56:37 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 19:15:47 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	check_n_vec(t_pt vec)
 
 static void	check_sep(char *str, char sep, int num)
 {
-	while (*str && num)
+	while (*str)
 	{
 		if (*str == sep)
 			num--;

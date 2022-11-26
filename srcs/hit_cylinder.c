@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:32:47 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/26 13:28:53 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 19:09:00 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	hit_cylinder_bot(t_cy *cy, t_ray ray, t_hit_check *hit)
 	double	len;
 	t_pt	bot;
 
-	bot = vsub(cy->pos, vmult(cy->dir, cy->height / 2));
+	bot = vadd(cy->pos, vmult(cy->dir, -(cy->height / 2)));
 	tmp = vdot(vsub(bot, ray.pos), cy->dir) / vdot(ray.dir, cy->dir);
 	hit->is_surface = FALSE;
 	if (tmp < hit->t_min || hit->t_max < tmp)
@@ -108,9 +108,9 @@ int	hit_cylinder(t_cy *cy, t_ray ray, t_hit_check *hit)
 	int	return_value;
 
 	return_value = FALSE;
-	return_value += hit_cylinder_side(cy, ray, hit);
 	return_value += hit_cylinder_top(cy, ray, hit);
 	return_value += hit_cylinder_bot(cy, ray, hit);
+	return_value += hit_cylinder_side(cy, ray, hit);
 	if (return_value)
 		hit->is_surface = FALSE;
 	return (return_value);
