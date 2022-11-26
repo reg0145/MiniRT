@@ -27,7 +27,7 @@ HDRS = ./headers
 SRCS = ${addprefix ${SRC_DIR}/, ${CFILES}}
 
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g -O3
+CFLAGS = -Wall -Wextra -Werror -g -O2
 MLX_FLAGS	=	-L./mlx -lmlx -framework OpenGL -framework Appkit
 LIBFT = libft/libft.a
 all : $(NAME)

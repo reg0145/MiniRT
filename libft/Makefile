@@ -51,7 +51,7 @@ SRCS = ft_isalpha.c \
 HDRS = ../headers
 
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -O2
 
 all : $(NAME)
 

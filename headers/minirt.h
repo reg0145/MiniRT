@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:40:54 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/23 14:24:27 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 14:42:38 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 # define TRUE 1
 # define FALSE 0
 
-# define KSN 50
+# define KSN 512
 # define KS 1
 
-# define MOVEMENT 0.1
-# define ROTATION 0.1
+# define MOVEMENT 0.5
+# define ROTATION 0.5
 
 typedef enum e_obj
 {
