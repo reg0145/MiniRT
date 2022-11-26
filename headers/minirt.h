@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:40:54 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/26 19:11:09 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 19:30:58 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # define KSN 512
 # define KS 1
 
-# define MOVEMENT 0.5
-# define ROTATION 0.5
+# define MOVEMENT 0.1
+# define ROTATION 0.1
 
 typedef enum e_obj
 {
