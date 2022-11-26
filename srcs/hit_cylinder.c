@@ -44,7 +44,7 @@ static int	hit_cylinder_side(t_cy *cy, t_ray ray, t_hit_check *hit)
 	hit->t_max = tmp;
 	hit->albedo = cy->color;
 	hit->pos = vadd(ray.pos, vmult(ray.dir, hit->t));
-	hit->n_vec = hit_cylinder_side2();
+	hit->n_vec = hit_cylinder_side2(cy, hit);
 	if (vdot(ray.dir, hit->n_vec) > 0)
 		hit->n_vec = vmult(hit->n_vec, -1);
 	return (TRUE);
