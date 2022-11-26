@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:32:47 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/26 11:57:17 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 12:40:59 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	hit_cylinder_side(t_cy *cy, t_ray ray, t_hit_check *hit)
 		 > cy->height / 2) // 원기둥 높이만큼만 나오도록 자르기
 		return (FALSE);
 	hit->t = tmp;
+	hit->t_max = tmp;
 	hit->albedo = cy->color;
 	hit->pos = vadd(ray.pos, vmult(ray.dir, hit->t));
 	hit->n_vec = vdiv(vsub(hit->pos, cy->pos), cy->r);
@@ -53,6 +54,7 @@ int	hit_cylinder_top(t_cy *cy, t_ray ray, t_hit_check *hit)
 	if (vlength2(vsub(vadd(ray.pos, vmult(ray.dir, tmp)), top)) > pow(cy->r, 2))
 		return (FALSE);
 	hit->t = tmp;
+	hit->t_max = tmp;
 	hit->albedo = cy->color;
 	hit->pos = vadd(ray.pos, vmult(ray.dir, hit->t));
 	hit->n_vec = cy->dir;
@@ -73,6 +75,7 @@ int	hit_cylinder_bot(t_cy *cy, t_ray ray, t_hit_check *hit)
 	if (vlength2(vsub(vadd(ray.pos, vmult(ray.dir, tmp)), bot)) > pow(cy->r, 2))
 		return (FALSE);
 	hit->t = tmp;
+	hit->t_max = tmp;
 	hit->albedo = cy->color;
 	hit->pos = vadd(ray.pos, vmult(ray.dir, hit->t));
 	hit->n_vec = vmult(cy->dir, -1);
@@ -87,12 +90,8 @@ int	hit_cylinder(t_cy *cy, t_ray ray, t_hit_check *hit)
 	int	return_value;
 
 	return_value = FALSE;
-	return_value = hit_cylinder_top(cy, ray, hit);
-	if (return_value == TRUE)
-		return (TRUE);
-	return_value = hit_cylinder_bot(cy, ray, hit);
-	if (return_value == TRUE)
-		return (TRUE);
-	return_value = hit_cylinder_side(cy, ray, hit);
+	return_value += hit_cylinder_top(cy, ray, hit);
+	return_value += hit_cylinder_bot(cy, ray, hit);
+	return_value += hit_cylinder_side(cy, ray, hit);
 	return (return_value);
 }

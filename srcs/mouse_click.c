@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:54:05 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/23 14:28:54 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 12:41:41 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,9 @@ static int	check_objs_clicked(t_info *info, t_ray ray, \
 		obj = (t_obj *)list->content;
 		if (hit_check(obj, ray, &tmp))
 		{
-			if (tmp.t_max > tmp.t)
+			if (tmp.t < hit->t_max)
 			{
 				renew_hit(info, obj, hit_obj);
-				tmp.t_max = tmp.t;
 				return_value = TRUE;
 				*hit = tmp;
 			}
