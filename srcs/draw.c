@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:42:38 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/26 19:01:02 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 21:38:41 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ static t_pt	check_light(t_info *info, t_ray ray, t_hit_check hit)
 	color = vadd(vadd(pong.dif, pong.specular), \
 		vmult(info->amb.color, info->amb.ratio));
 	color = vmin(vmult_vec(color, hit.albedo), (t_pt){1, 1, 1});
-	if (hit.is_surface)
-		color = vmult(color, 0.5);
 	return (color);
 }
 

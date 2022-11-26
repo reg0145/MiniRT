@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 10:14:50 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/21 12:17:04 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 21:08:39 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	**ft_split(char const *s, char c)
 	ptrs = (char **)ft_calloc(num_strs, sizeof(char *));
 	if (!ptrs)
 		return (0);
+	ptrs[num_strs - 1] = NULL;
 	while (i + 1 < num_strs)
 	{
 		s = ft_next_strs(s, c, 0);

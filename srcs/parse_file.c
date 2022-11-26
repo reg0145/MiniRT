@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:56:02 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/25 11:19:38 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 21:11:35 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	read_file(char *file, char **content)
 {
 	int		fd;
 	int		read_size;
-	char	buf[BUFFER_SIZE];
+	char	buf[BUFFER_SIZE + 1];
 	char	*tmp;
 
 	fd = open(file, O_RDONLY);
@@ -40,6 +40,7 @@ void	read_file(char *file, char **content)
 		read_size = read(fd, buf, BUFFER_SIZE);
 		if (read_size < 0)
 			break ;
+		buf[read_size] = 0;
 		tmp = *content;
 		*content = ft_strjoin(*content, buf);
 		free(tmp);
