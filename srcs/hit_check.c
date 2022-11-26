@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:42:31 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/25 10:40:37 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 13:19:36 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ double	root_formula(double a, double b, double c, t_hit_check *hit)
 		(root1 > hit->t_max && root2 > hit->t_max))
 		return (-1);
 	hit->is_surface = FALSE;
-	if (discriminant <= 0.01)
+	if (discriminant <= 0.03)
 		hit->is_surface = TRUE;
 	if (fmin(root1, root2) > 0)
 		return (fmin(root1, root2));
@@ -63,9 +63,8 @@ int	check_objs(t_info *info, t_ray ray, t_hit_check *hit)
 		obj = (t_obj *)list->content;
 		if (hit_check(obj, ray, &tmp))
 		{
-			if (tmp.t_max > tmp.t)
+			if (tmp.t < hit->t_max)
 			{
-				tmp.t_max = tmp.t;
 				return_value = TRUE;
 				*hit = tmp;
 			}
