@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:42:31 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/26 13:19:36 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 18:56:13 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ double	root_formula(double a, double b, double c, t_hit_check *hit)
 	double	root2;
 
 	discriminant = b * b - 4 * a * c;
-	if (discriminant < 0)
+	if (discriminant < hit->t_min)
 		return (-1);
 	root1 = (-b + sqrt(discriminant)) / (2 * a);
 	root2 = (-b - sqrt(discriminant)) / (2 * a);
@@ -28,9 +28,9 @@ double	root_formula(double a, double b, double c, t_hit_check *hit)
 		(root1 > hit->t_max && root2 > hit->t_max))
 		return (-1);
 	hit->is_surface = FALSE;
-	if (discriminant <= 0.03)
-		hit->is_surface = TRUE;
-	if (fmin(root1, root2) > 0)
+	// if (discriminant <= 0.03)
+	// 	hit->is_surface = TRUE;
+	if (fmin(root1, root2) > hit->t_min)
 		return (fmin(root1, root2));
 	return (fmax(root1, root2));
 }
@@ -63,7 +63,7 @@ int	check_objs(t_info *info, t_ray ray, t_hit_check *hit)
 		obj = (t_obj *)list->content;
 		if (hit_check(obj, ray, &tmp))
 		{
-			if (tmp.t < hit->t_max)
+			if (tmp.t < hit->t && tmp.t > hit->t_min)
 			{
 				return_value = TRUE;
 				*hit = tmp;
