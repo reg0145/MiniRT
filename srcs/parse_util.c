@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:31:08 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/26 19:15:47 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 20:18:24 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	check_n_vec(t_pt vec)
 {
-	t_pt	tmp;
-
-	tmp = vunit(vec);
-	if (tmp.x != vec.x || tmp.y != vec.y || tmp.z != vec.z)
-		ft_error("vector is not normalized");
+	if (vec.x < -1 || 1 < vec.x || vec.y < -1 || 1 < vec.y || \
+		vec.z < -1 || 1 < vec.z)
+		ft_error("normalized vector is not in range [-1, 1]");
 }
 
 static void	check_sep(char *str, char sep, int num)

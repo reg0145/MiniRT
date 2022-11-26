@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:40:57 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 01:04:28 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 21:38:01 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ typedef struct s_obj
 	double		t;		// 광선과 object가 만나는 지점까지의 거리
 	double		t_min;	// 광선과 object가 만나는 지점까지의 최소 거리 (화면에 나타날 수 있는 최소 거리)
 	double		t_max;	// 광선과 object가 만나는 지점까지의 최대 거리 (화면에 나타날 수 있는 최대 거리)
-	int			is_surface;	// object의 surface에 있는지 체크 (표면이면 조금 부드럽게 처리하기 위함)
 */
 typedef struct s_hit_check
 {
@@ -103,7 +102,6 @@ typedef struct s_hit_check
 	double		t;
 	double		t_min;
 	double		t_max;
-	int			is_surface;
 }	t_hit_check;
 
 /* 추적할 광선에 대한 정보 */
