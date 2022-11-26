@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:47:35 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/23 14:45:30 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 11:30:58 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	is_valid_key(int keycode)
 		keycode == KEY_D || keycode == KEY_LEFT || keycode == KEY_RIGHT || \
 		keycode == KEY_UP || keycode == KEY_DOWN || keycode == KEY_ESC || \
 		keycode == KEY_L || keycode == KEY_C || keycode == KEY_Q || \
-		keycode == KEY_E || keycode == KEY_Z || keycode == KEY_X)
+		keycode == KEY_E || keycode == KEY_Z || keycode == KEY_X || 
+		keycode == KEY_DELETE)
 		return (TRUE);
 	return (FALSE);
 }
@@ -56,7 +57,12 @@ int	key_press(int keycode, t_info *info)
 	select_object_by_key(info, keycode);
 	if (!info->clicked)
 		return (0);
-	if (is_rotate_key(keycode))
+	if (keycode == KEY_DELETE && info->clicked)
+	{
+		reverse_color(info->clicked);
+		info->clicked = NULL;
+	}
+	else if (is_rotate_key(keycode))
 		key_rotate(info->clicked, info->clicked_type, keycode);
 	else if (is_move_key(keycode))
 		key_move(info->clicked, info->clicked_type, info->cam.dir, keycode);

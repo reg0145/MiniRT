@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:56:02 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 03:15:20 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/25 11:19:38 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	read_file(char *file, char **content)
 		if (read_size < BUFFER_SIZE)
 			break ;
 	}
+	close(fd);
 }
 
 static void	check_duplicate_info(char *key, int *flag)

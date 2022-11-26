@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:40:54 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 19:37:16 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/23 14:24:27 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,15 @@ t_pt	cam_set_vup(t_pt dir);
 void	cam_init(t_info *info);
 t_ray	ray_init(t_info *info, double x, double y);
 
-/* move objects */
+/* key press */
+int		is_move_key(int keykode);
+int		is_rotate_key(int keycode);
 int		key_press(int keycode, t_info *info);
+void	print_key_info(t_info *info);
+void	key_move(void *clicked, int type, t_pt dir, int keycode);
+void	key_rotate(void *clicked, int type, int keycode);
+
+/* move objects */
 void	move_obj(t_pt *pos, t_pt dir);
 void	move_camera(t_cam *cam, int keycode);
 void	move_light(t_light *light, t_pt dir, int keycode);
@@ -93,10 +100,6 @@ void	parse_plane(char **args, t_info *info);
 void	parse_cylinder(char **args, t_info *info);
 void	check_n_vec(t_pt vec);
 
-void	draw(t_info *info);
-
-int		mouse_click(int button, int x, int y, void *param);
-
 /* for check_hit */
 int		check_objs(t_info *info, t_ray ray, t_hit_check *hit);
 int		hit_check(t_obj *obj, t_ray ray, t_hit_check *hit);
@@ -104,5 +107,9 @@ int		hit_cylinder(t_cy *cy, t_ray ray, t_hit_check *hit);
 int		hit_plane(t_pl *pl, t_ray ray, t_hit_check *hit);
 int		hit_sphere(t_sp *sp, t_ray ray, t_hit_check *hit);
 double	root_formula(double a, double b, double c, t_hit_check *hit);
+
+void	draw(t_info *info);
+int		mouse_click(int button, int x, int y, void *param);
+void	reverse_color(t_obj *obj);
 
 #endif

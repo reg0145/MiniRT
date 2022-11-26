@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:31:08 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 19:37:03 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 11:27:55 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,24 @@ void	check_n_vec(t_pt vec)
 		ft_error("vector is not normalized");
 }
 
+static void	check_sep(char *str, char sep, int num)
+{
+	while (*str && num)
+	{
+		if (*str == sep)
+			num--;
+		str++;
+	}
+	if (num)
+		ft_error("wrong input : wrong number of separators");	
+}
+
 t_pt	parse_color(char *str)
 {
 	char	**colors;
 	t_pt	color;
 
+	check_sep(str, ',', 2);
 	colors = ft_split(str, ',');
 	if (!colors)
 		ft_error("malloc failed");
@@ -45,6 +58,7 @@ t_pt	parse_pt(char *str)
 	char	**pts;
 	t_pt	pt;
 
+	check_sep(str, ',', 2);
 	pts = ft_split(str, ',');
 	if (!pts)
 		ft_error("malloc failed");

@@ -13,10 +13,13 @@ CFILES = main.c \
 		key_util.c \
 		mouse_click.c \
 		key_move.c \
-		key_rotate_and_util.c \
+		key_move_util.c \
+		key_rotate.c \
+		key_rotate_util.c \
 		hit_plane.c \
 		hit_sphere.c \
-		hit_cylinder.c
+		hit_cylinder.c \
+		reverse_color.c
 
 SRC_DIR = ./srcs
 HDRS = ./headers

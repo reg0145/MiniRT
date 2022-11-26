@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:38:22 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 19:44:21 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 11:10:56 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	parse_camera(char **args, t_info *info)
 	info->cam.dir = parse_pt(args[2]);
 	check_n_vec(info->cam.dir);
 	info->cam.fov = ft_atod(args[3]);
+	if (info->cam.fov < 0 || info->cam.fov > 180)
+		ft_error("wrong input : fov must be 0 ~ 180");
 }
 
 void	parse_light(char **args, t_info *info)
