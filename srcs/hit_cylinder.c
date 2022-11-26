@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:32:47 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/26 13:19:53 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 15:06:36 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	hit_cylinder_side(t_cy *cy, t_ray ray, t_hit_check *hit)
 	double	b;
 	double	c;
 	double	tmp;
+	t_pt	tmp2;
 
 	op = vsub(ray.pos, cy->pos);
 	a = vlength2(vcross(ray.dir, cy->dir));
@@ -37,7 +38,8 @@ int	hit_cylinder_side(t_cy *cy, t_ray ray, t_hit_check *hit)
 	hit->t_max = tmp;
 	hit->albedo = cy->color;
 	hit->pos = vadd(ray.pos, vmult(ray.dir, hit->t));
-	hit->n_vec = vdiv(vsub(hit->pos, cy->pos), cy->r);
+	tmp2 = vsub(vmult(ray.dir, hit->t), cy->pos);
+	hit->n_vec = vunit(vsub(tmp2, vmult(cy->dir, vdot(cy->dir, tmp2))));
 	if (vdot(ray.dir, hit->n_vec) > 0)
 		hit->n_vec = vmult(hit->n_vec, -1);
 	return (TRUE);
