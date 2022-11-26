@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:42:38 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/22 00:43:27 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 21:38:27 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,6 @@ static t_pt	check_light(t_info *info, t_ray ray, t_hit_check hit)
 	color = vadd(vadd(pong.dif, pong.specular), \
 		vmult(info->amb.color, info->amb.ratio)); // 광택 + 난반사 적용
 	color = vmin(vmult_vec(color, hit.albedo), (t_pt){1, 1, 1}); // albedo 적용
-	if (hit.is_surface)
-		// color = vadd(vmult(color, 0.5), vmult(info->light.color, 0.5)); //표면인 경우 반사체면 반사도를 반으로 줄임...(경계면 표현, object와 object 사이에는 적용 못함ㅠㅠ)
-		color = vmult(color, 0.5); //표면인 경우 반사체면 반사도를 반으로 줄임... (경계면 표현, object와 object 사이에는 적용 못함ㅠㅠ)
 	return (color); 
 }
 
