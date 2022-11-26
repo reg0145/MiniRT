@@ -28,8 +28,8 @@ double	root_formula(double a, double b, double c, t_hit_check *hit)
 		(root1 > hit->t_max && root2 > hit->t_max))
 		return (-1);
 	hit->is_surface = FALSE;
-	// if (discriminant <= 0.03)
-	// 	hit->is_surface = TRUE;
+	if (discriminant <= 0.03)
+	 	hit->is_surface = TRUE;
 	if (fmin(root1, root2) > hit->t_min)
 		return (fmin(root1, root2));
 	return (fmax(root1, root2));
