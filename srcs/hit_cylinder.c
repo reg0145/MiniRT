@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:32:47 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/26 12:40:59 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/26 13:19:53 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	hit_cylinder_side(t_cy *cy, t_ray ray, t_hit_check *hit)
 		vcross(op, cy->dir));
 	c = vlength2(vcross(op, cy->dir)) - pow(cy->r, 2);
 	tmp = root_formula(a, b, c, hit);
+	hit->is_surface = FALSE;
 	if (tmp < hit->t_min || hit->t_max < tmp)
 		return (FALSE);
 	if (fabs(vdot(vsub(vadd(ray.pos, vmult(ray.dir, tmp)), cy->pos), cy->dir)) \
@@ -45,14 +46,19 @@ int	hit_cylinder_side(t_cy *cy, t_ray ray, t_hit_check *hit)
 int	hit_cylinder_top(t_cy *cy, t_ray ray, t_hit_check *hit)
 {
 	double	tmp;
+	double	len;
 	t_pt	top;
 
 	top = vadd(cy->pos, vmult(cy->dir, cy->height / 2));
 	tmp = vdot(vsub(top, ray.pos), cy->dir) / vdot(ray.dir, cy->dir);
+	hit->is_surface = FALSE;
 	if (tmp < hit->t_min || hit->t_max < tmp)
 		return (FALSE);
-	if (vlength2(vsub(vadd(ray.pos, vmult(ray.dir, tmp)), top)) > pow(cy->r, 2))
+	len = vlength2(vsub(vadd(ray.pos, vmult(ray.dir, tmp)), top));
+	if (len > pow(cy->r, 2))
 		return (FALSE);
+	if (pow(cy->r, 2) - len < 0.03)
+		hit->is_surface = TRUE;
 	hit->t = tmp;
 	hit->t_max = tmp;
 	hit->albedo = cy->color;
@@ -66,14 +72,19 @@ int	hit_cylinder_top(t_cy *cy, t_ray ray, t_hit_check *hit)
 int	hit_cylinder_bot(t_cy *cy, t_ray ray, t_hit_check *hit)
 {
 	double	tmp;
+	double	len;
 	t_pt	bot;
 
 	bot = vsub(cy->pos, vmult(cy->dir, cy->height / 2));
 	tmp = vdot(vsub(bot, ray.pos), cy->dir) / vdot(ray.dir, cy->dir);
+	hit->is_surface = FALSE;
 	if (tmp < hit->t_min || hit->t_max < tmp)
 		return (FALSE);
-	if (vlength2(vsub(vadd(ray.pos, vmult(ray.dir, tmp)), bot)) > pow(cy->r, 2))
+	len = vlength2(vsub(vadd(ray.pos, vmult(ray.dir, tmp)), bot));
+	if (len > pow(cy->r, 2))
 		return (FALSE);
+	if (pow(cy->r, 2) - len < 0.03)
+		hit->is_surface = TRUE;
 	hit->t = tmp;
 	hit->t_max = tmp;
 	hit->albedo = cy->color;
