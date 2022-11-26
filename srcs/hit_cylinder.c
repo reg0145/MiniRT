@@ -13,14 +13,21 @@
 #include "../headers/minirt.h"
 #include <math.h>
 
-int	hit_cylinder_side(t_cy *cy, t_ray ray, t_hit_check *hit)
+static t_pt	hit_cylinder_side2(t_cy *cy, t_hit_check *hit)
+{
+	t_pt	tmp2;
+
+	tmp2 = vsub(hit->pos, cy->pos);
+	return (vunit(vsub(tmp2, vmult(cy->dir, vdot(cy->dir, tmp2)))));
+}
+
+static int	hit_cylinder_side(t_cy *cy, t_ray ray, t_hit_check *hit)
 {
 	t_pt	op;
 	double	a;
 	double	b;
 	double	c;
 	double	tmp;
-	t_pt	tmp2;
 
 	op = vsub(ray.pos, cy->pos);
 	a = vlength2(vcross(ray.dir, cy->dir));
@@ -37,14 +44,13 @@ int	hit_cylinder_side(t_cy *cy, t_ray ray, t_hit_check *hit)
 	hit->t_max = tmp;
 	hit->albedo = cy->color;
 	hit->pos = vadd(ray.pos, vmult(ray.dir, hit->t));
-	tmp2 = vsub(hit->pos, cy->pos);
-	hit->n_vec = vunit(vsub(tmp2, vmult(cy->dir, vdot(cy->dir, tmp2))));
+	hit->n_vec = hit_cylinder_side2();
 	if (vdot(ray.dir, hit->n_vec) > 0)
 		hit->n_vec = vmult(hit->n_vec, -1);
 	return (TRUE);
 }
 
-int	hit_cylinder_top(t_cy *cy, t_ray ray, t_hit_check *hit)
+static int	hit_cylinder_top(t_cy *cy, t_ray ray, t_hit_check *hit)
 {
 	double	tmp;
 	double	len;
@@ -70,7 +76,7 @@ int	hit_cylinder_top(t_cy *cy, t_ray ray, t_hit_check *hit)
 	return (TRUE);
 }
 
-int	hit_cylinder_bot(t_cy *cy, t_ray ray, t_hit_check *hit)
+static int	hit_cylinder_bot(t_cy *cy, t_ray ray, t_hit_check *hit)
 {
 	double	tmp;
 	double	len;
