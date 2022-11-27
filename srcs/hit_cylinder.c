@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:32:47 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/26 21:38:22 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/27 11:41:06 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ static int	hit_cylinder_bot(t_cy *cy, t_ray ray, t_hit_check *hit)
 	return (TRUE);
 }
 
-/* 구!!!!!!!  현!!!!!!!  필!!!!!!!  요!!!!!!! */
 int	hit_cylinder(t_cy *cy, t_ray ray, t_hit_check *hit)
 {
 	int	return_value;
