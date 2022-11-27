@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_move.c                                         :+:      :+:    :+:   */
+/*   key_move_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 21:27:05 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/27 14:45:18 by donghyuk         ###   ########.fr       */
+/*   Updated: 2022/11/27 14:48:20 by donghyuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-#include "key_code.h"
+#include "minirt_bonus.h"
+#include "key_code_bonus.h"
 
 void	move_camera(t_cam *cam, int keycode)
 {

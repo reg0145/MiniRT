@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hit_cylinder.c                                     :+:      :+:    :+:   */
+/*   hit_cylinder_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:32:47 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/27 14:45:04 by donghyuk         ###   ########.fr       */
+/*   Updated: 2022/11/27 14:44:02 by donghyuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 #include <math.h>
 
 static t_pt	hit_cylinder_side2(t_cy *cy, t_hit_check *hit)
@@ -96,6 +96,7 @@ static int	hit_cylinder_bot(t_cy *cy, t_ray ray, t_hit_check *hit)
 	return (TRUE);
 }
 
+/* 구!!!!!!!  현!!!!!!!  필!!!!!!!  요!!!!!!! */
 int	hit_cylinder(t_cy *cy, t_ray ray, t_hit_check *hit)
 {
 	int	return_value;

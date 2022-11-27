@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   draw_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:42:38 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/27 14:26:35 by donghyuk         ###   ########.fr       */
+/*   Updated: 2022/11/27 14:43:01 by donghyuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 #include "../mlx/mlx.h"
 #include <math.h>
 
@@ -47,7 +47,6 @@ static t_pt	check_light(t_info *info, t_ray ray, t_hit_check hit)
 	t_pt	color;
 	t_ray	to_light;
 
-	(void)ray;
 	pong.lig_len = vlength(vsub(info->light.pos, hit.pos));
 	to_light = (t_ray){vadd(hit.pos, vmult(hit.n_vec, 1e-6)), \
 		vunit(vsub(info->light.pos, hit.pos))};
@@ -56,7 +55,13 @@ static t_pt	check_light(t_info *info, t_ray ray, t_hit_check hit)
 	pong.lig_dir = vunit(vsub(info->light.pos, hit.pos));
 	pong.kd = fmax(vdot(hit.n_vec, pong.lig_dir), 0.0);
 	pong.dif = vmult(info->light.color, pong.kd * info->light.ratio);
-	color = vadd(pong.dif, vmult(info->amb.color, info->amb.ratio));
+	pong.view_dir = vunit(vmult(ray.dir, -1));
+	pong.ref_dir = vreflect(vmult(pong.lig_dir, -1), hit.n_vec);
+	pong.spec = pow(fmax(vdot(pong.view_dir, pong.ref_dir), 0.0), KSN);
+	pong.specular = vmult((vmult(info->light.color, KS * \
+		info->light.ratio)), pong.spec);
+	color = vadd(vadd(pong.dif, pong.specular), \
+		vmult(info->amb.color, info->amb.ratio));
 	color = vmin(vmult_vec(color, hit.albedo), (t_pt){1, 1, 1});
 	return (color);
 }

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_click.c                                      :+:      :+:    :+:   */
+/*   mouse_click_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:54:05 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/27 14:45:28 by donghyuk         ###   ########.fr       */
+/*   Updated: 2022/11/27 14:48:12 by donghyuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "key_code.h"
-#include "minirt.h"
+#include "key_code_bonus.h"
+#include "minirt_bonus.h"
 
 static void	renew_hit(t_info *info, t_obj *obj, t_obj **hit_obj)
 {
