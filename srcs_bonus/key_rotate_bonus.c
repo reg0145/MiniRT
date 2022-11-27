@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_rotate.c                                       :+:      :+:    :+:   */
+/*   key_rotate_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:21:02 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/27 14:45:22 by donghyuk         ###   ########.fr       */
+/*   Updated: 2022/11/27 14:48:27 by donghyuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-#include "key_code.h"
+#include "minirt_bonus.h"
+#include "key_code_bonus.h"
 #include <math.h>
 
 void	rotate_camera(t_cam *cam, int keycode)
