@@ -6,7 +6,7 @@
 /*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:42:38 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/27 14:26:35 by donghyuk         ###   ########.fr       */
+/*   Updated: 2022/11/27 14:55:39 by donghyuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,12 @@ static int	is_shadow(t_info *info, t_hit_check *hit, t_ray ray, double len)
 	return (FALSE);
 }
 
-static t_pt	check_light(t_info *info, t_ray ray, t_hit_check hit)
+static t_pt	check_light(t_info *info, t_hit_check hit)
 {
 	t_pong	pong;
 	t_pt	color;
 	t_ray	to_light;
 
-	(void)ray;
 	pong.lig_len = vlength(vsub(info->light.pos, hit.pos));
 	to_light = (t_ray){vadd(hit.pos, vmult(hit.n_vec, 1e-6)), \
 		vunit(vsub(info->light.pos, hit.pos))};
@@ -70,7 +69,7 @@ static t_pt	trace_ray(t_info *info, t_ray ray)
 	hit.t_min = 1e-6;
 	hit.t = hit.t_max;
 	if (check_objs(info, ray, &hit))
-		return (check_light(info, ray, hit));
+		return (check_light(info, hit));
 	return ((t_pt){0, 0, 0});
 }
 
