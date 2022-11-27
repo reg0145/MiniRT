@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:32:08 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/26 21:39:25 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/27 11:40:33 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	hit_plane(t_pl *pl, t_ray ray, t_hit_check *hit)
 	if (tmp < hit->t_min || hit->t_max <= tmp)
 		return (FALSE);
 	hit->t = tmp;
+	hit->t_max = tmp;
 	hit->albedo = pl->color;
 	hit->pos = vadd(ray.pos, vmult(ray.dir, hit->t));
 	hit->n_vec = pl->dir;

@@ -96,7 +96,6 @@ static int	hit_cylinder_bot(t_cy *cy, t_ray ray, t_hit_check *hit)
 	return (TRUE);
 }
 
-/* 구!!!!!!!  현!!!!!!!  필!!!!!!!  요!!!!!!! */
 int	hit_cylinder(t_cy *cy, t_ray ray, t_hit_check *hit)
 {
 	int	return_value;
