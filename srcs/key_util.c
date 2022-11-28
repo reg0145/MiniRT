@@ -20,8 +20,8 @@ int	is_valid_key(int keycode)
 		keycode == KEY_D || keycode == KEY_LEFT || keycode == KEY_RIGHT || \
 		keycode == KEY_UP || keycode == KEY_DOWN || keycode == KEY_ESC || \
 		keycode == KEY_L || keycode == KEY_C || keycode == KEY_Q || \
-		keycode == KEY_E || keycode == KEY_Z || keycode == KEY_X || \
-		keycode == KEY_DELETE)
+		keycode == KEY_E || keycode == KEY_SIZE_UP || keycode == KEY_SIZE_DOWN \
+		|| keycode == KEY_DELETE || keycode == KEY_Z || keycode == KEY_X)
 		return (TRUE);
 	return (FALSE);
 }
