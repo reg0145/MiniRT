@@ -6,12 +6,12 @@
 /*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:47:35 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/27 14:47:59 by donghyuk         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:45:49 by donghyuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt_bonus.h"
-#include "key_code_bonus.h"
+#include "minirt.h"
+#include "key_code.h"
 #include "../mlx/mlx.h"
 
 int	is_valid_key(int keycode)
@@ -20,8 +20,8 @@ int	is_valid_key(int keycode)
 		keycode == KEY_D || keycode == KEY_LEFT || keycode == KEY_RIGHT || \
 		keycode == KEY_UP || keycode == KEY_DOWN || keycode == KEY_ESC || \
 		keycode == KEY_L || keycode == KEY_C || keycode == KEY_Q || \
-		keycode == KEY_E || keycode == KEY_Z || keycode == KEY_X || \
-		keycode == KEY_DELETE)
+		keycode == KEY_E || keycode == KEY_SIZE_UP || keycode == KEY_SIZE_DOWN \
+		|| keycode == KEY_DELETE || keycode == KEY_Z || keycode == KEY_X)
 		return (TRUE);
 	return (FALSE);
 }
@@ -66,6 +66,8 @@ int	key_press(int keycode, t_info *info)
 		key_rotate(info->clicked, info->clicked_type, keycode);
 	else if (is_move_key(keycode))
 		key_move(info->clicked, info->clicked_type, info->cam.dir, keycode);
+	else if (is_size_key(keycode))
+		key_size(info->clicked, info->clicked_type, keycode);
 	draw(info);
 	return (0);
 }
