@@ -6,7 +6,7 @@
 /*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 00:58:34 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/27 14:40:19 by donghyuk         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:44:58 by donghyuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # define KEY_ESC 53
 # define KEY_L 37
 # define KEY_C 8
+
+/* key for size */
+# define KEY_SIZE_UP 30
+# define KEY_SIZE_DOWN 33
 
 /* key for rotate */
 # define KEY_Z 6

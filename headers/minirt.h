@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:40:54 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/26 21:35:09 by nheo             ###   ########.fr       */
+/*   Updated: 2022/11/28 16:36:53 by donghyuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # define MOVEMENT 0.1
 # define ROTATION 0.1
-
+# define RESIZE 0.1
 typedef enum e_obj
 {
 	SPHERE,
@@ -69,10 +69,12 @@ t_ray	ray_init(t_info *info, double x, double y);
 /* key press */
 int		is_move_key(int keykode);
 int		is_rotate_key(int keycode);
+int		is_size_key(int keycode);
 int		key_press(int keycode, t_info *info);
 void	print_key_info(t_info *info);
 void	key_move(void *clicked, int type, t_pt dir, int keycode);
 void	key_rotate(void *clicked, int type, int keycode);
+void	key_size(void *clicked, int type, int keycode);
 
 /* move objects */
 void	move_obj(t_pt *pos, t_pt dir);
