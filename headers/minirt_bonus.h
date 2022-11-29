@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:40:54 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/28 16:43:58 by donghyuk         ###   ########.fr       */
+/*   Updated: 2022/11/29 11:45:05 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # define MOVEMENT 0.1
 # define ROTATION 0.1
+# define RESIZE 0.1
 
 typedef enum e_obj
 {

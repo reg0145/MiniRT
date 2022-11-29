@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_minor_object_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:55:52 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/27 14:43:01 by donghyuk         ###   ########.fr       */
+/*   Updated: 2022/11/29 11:49:18 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	parse_sphere(char **args, t_info *info)
 		ft_error("malloc failed");
 	new_sp->pos = parse_pt(args[1]);
 	new_sp->r = ft_atod(args[2]) / 2;
+	if (new_sp->r < 0)
+		ft_error("length can't be lower than 0");
 	new_sp->color = parse_color(args[3]);
 	obj->obj_info = new_sp;
 	obj->type = SPHERE;
@@ -76,6 +78,8 @@ void	parse_cylinder(char **args, t_info *info)
 	check_n_vec(new_cy->dir);
 	new_cy->r = ft_atod(args[3]) / 2;
 	new_cy->height = ft_atod(args[4]);
+	if (new_cy->r < 0 || new_cy->height < 0)
+		ft_error("length can't be lower than 0");
 	new_cy->color = parse_color(args[5]);
 	obj->type = CYLINDER;
 	obj->obj_info = new_cy;
