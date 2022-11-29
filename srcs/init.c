@@ -69,8 +69,12 @@ void	mlx_info_init(t_info *info)
 	if (!info->addr)
 		ft_error("mlx_get_data_addr() failed");
 	print_key_info(info);
-	mlx_string_put(info->mlx, info->win, 250, HEIGHT + 20, 0xFFFFFF, \
+	mlx_string_put(info->mlx, info->win, 20, HEIGHT + 20, 0xFFFFFF, \
 		"C : select camera");
-	mlx_string_put(info->mlx, info->win, 420, HEIGHT + 20, 0xFFFFFF, \
+	mlx_string_put(info->mlx, info->win, 170, HEIGHT + 20, 0xFFFFFF, \
 		"L : select light");
+	mlx_string_put(info->mlx, info->win, 320, HEIGHT + 20, 0xFFFFFF, \
+		"] : size up");
+	mlx_string_put(info->mlx, info->win, 520, HEIGHT + 20, 0xFFFFFF, \
+		"[ : size down");
 }

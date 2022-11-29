@@ -13,6 +13,10 @@
 #ifndef KEY_CODE_H
 # define KEY_CODE_H
 
+/* key for size */
+# define KEY_SIZE_UP 30
+# define KEY_SIZE_DOWN 33
+
 /* key for move */
 # define KEY_A 0
 # define KEY_S 1

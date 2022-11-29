@@ -17,6 +17,8 @@ CFILES = main.c \
 		key_move_util.c \
 		key_rotate.c \
 		key_rotate_util.c \
+		key_size.c \
+		key_size_util.c \
 		hit_plane.c \
 		hit_sphere.c \
 		hit_cylinder.c \
@@ -39,6 +41,8 @@ BONUS_CFILES = main_bonus.c \
 		key_move_util_bonus.c \
 		key_rotate_bonus.c \
 		key_rotate_util_bonus.c \
+		key_size_bonus.c \
+		key_size_util_bonus.c \
 		hit_plane_bonus.c \
 		hit_sphere_bonus.c \
 		hit_cylinder_bonus.c \
@@ -83,7 +87,7 @@ fclean :
 	rm -f $(LIBFT)
 	rm -f $(NAME) $(BONUS)
 
-re : 
+re :
 	make fclean
 	make all
 
