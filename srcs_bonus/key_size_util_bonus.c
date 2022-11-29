@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_size_util.c                                    :+:      :+:    :+:   */
+/*   key_size_util_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:50:50 by donghyuk          #+#    #+#             */
-/*   Updated: 2022/11/28 16:44:20 by donghyuk         ###   ########.fr       */
+/*   Updated: 2022/11/29 11:33:31 by donghyuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "key_code.h"
-#include "minirt.h"
+#include "key_code_bonus.h"
+#include "minirt_bonus.h"
 
 int	is_size_key(int keycode)
 {

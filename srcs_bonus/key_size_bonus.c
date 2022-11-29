@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_size.c                                         :+:      :+:    :+:   */
+/*   key_size_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:52:27 by donghyuk          #+#    #+#             */
-/*   Updated: 2022/11/28 16:44:16 by donghyuk         ###   ########.fr       */
+/*   Updated: 2022/11/29 11:33:06 by donghyuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-#include "key_code.h"
+#include "minirt_bonus.h"
+#include "key_code_bonus.h"
 #include <math.h>
 
 static void	resize_cylinder(t_cy *cy, int keycode)

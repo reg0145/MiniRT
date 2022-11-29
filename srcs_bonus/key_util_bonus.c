@@ -6,12 +6,12 @@
 /*   By: donghyuk <donghyuk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:47:35 by nheo              #+#    #+#             */
-/*   Updated: 2022/11/28 16:45:49 by donghyuk         ###   ########.fr       */
+/*   Updated: 2022/11/29 11:34:42 by donghyuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-#include "key_code.h"
+#include "minirt_bonus.h"
+#include "key_code_bonus.h"
 #include "../mlx/mlx.h"
 
 int	is_valid_key(int keycode)
